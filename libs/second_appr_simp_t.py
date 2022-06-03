@@ -46,83 +46,13 @@ class AbstractConnectable(ABC):
             pop[1].reset_state_variables()
 
 
-# class LayerModule(AbstractConnectable):
-#     def __init__(
-#         self, 
-#         exc_size: int, 
-#         inh_size: int, 
-#         node_type=LIFNodes, 
-#         connection_type=Connection,
-#         exc_args={}, 
-#         inh_args={},
-#         exc_con_args={},
-#         inh_con_args={},
-#         monitor: bool = False,
-#         name=f"layer{random.randint(0,9999)}",
-#     ):
-#         super().__init__()
-#         self.classifications = torch.tensor([])
-#         self.name = name
-#         self.classification_len = 10
-
-#         exc1 = node_type(n=exc_size, **exc_args)
-#         exc2 = node_type(n=exc_size, **exc_args)
-#         inh = node_type(n=inh_size, **inh_args)
-
-#         exc1_inh = connection_type(
-#             source=exc1, target=inh , **exc_con_args
-#         )
-#         exc2_inh = connection_type(
-#             source=exc2, target=inh , **exc_con_args
-#         )
-#         inh_exc1 = connection_type(
-#             source=inh, target=exc1 , **inh_con_args
-#         )
-#         inh_exc2 = connection_type(
-#             source=inh, target=exc2 , **inh_con_args
-#         )
-
-#         self.pops = [
-#             (f"{self.name}_exc1", exc1), 
-#             (f"{self.name}_exc2", exc2), 
-#             (f"{self.name}_inh", inh)
-#         ]
-#         self.inpops = [self.pops[0], self.pops[1]]
-#         self.outpops = [self.pops[0], self.pops[1]]
-#         self.connections = [
-#             (self.pops[0][0], self.pops[2][0], exc1_inh), 
-#             (self.pops[1][0], self.pops[2][0], exc2_inh), 
-#             (self.pops[2][0], self.pops[0][0], inh_exc1), 
-#             (self.pops[2][0], self.pops[1][0], inh_exc2)
-#         ]
-
-#         if monitor:
-#             for pop in self.pops:
-#                 self.monitors.append((pop[0], Monitor(obj=pop[1], state_vars=['s'])))
-            
-
-#     def moment_classification(self) -> float:
-#         activity1 = self.pops[0][1].s.sum()
-#         activity2 = self.pops[1][1].s.sum()
-#         return (activity1 - activity2) / self.pops[0][1].n
-
-#     def classification(self) -> float:
-#         # print(self.classifications)
-#         self.classifications = torch.cat((self.classifications, torch.tensor([self.moment_classification()])))
-#         if self.classifications.shape[0] > self.classification_len:
-#             self.classifications = self.classifications[1:]
-#         return torch.mean(self.classifications)
-
-
 class LayerModule(AbstractConnectable):
     def __init__(
         self, 
         exc_size: int, 
-        inh_size: int, 
         node_type=LIFNodes, 
         connection_type=Connection,
         exc_args={}, 
-        inh_args={},
         exc_con_args={},
         inh_con_args={},
         exc_rec_con_args={},
