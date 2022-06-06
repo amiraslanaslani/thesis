@@ -7,6 +7,7 @@ from bindsnet.network.nodes import LIFNodes, Nodes, AdaptiveLIFNodes
 from bindsnet.network.topology import Connection
 from bindsnet.network import Network
 from bindsnet.learning.reward import AbstractReward
+from bindsnet.learning.learning import NoOp
 from bindsnet.network.monitors import Monitor
 
 LAYER_23 = 1
@@ -15,12 +16,35 @@ LAYER_4 = 2
 class AbstractConnectable(ABC):
     def __init__(self) -> None:
         super().__init__()
+        self.is_disabled_ever = False
+
         self.pops = []
         self.inpops = []
         self.outpops = []
         self.connections = []
         self.monitors = []
         self.submodules = []
+
+    def disable_learning(self, decay=False):
+        if not self.is_disabled_ever:
+            self.temp_update_rule = {}
+            for source, target, connection in self.connections:
+                self.temp_update_rule[(source, target)] = connection.update_rule
+            self.is_disabled_ever = True
+
+        for source, target, connection in self.connections:
+            connection.update_rule = NoOp(
+                connection, 
+                connection.nu, 
+                connection.reduction, 
+                connection.weight_decay if decay else 0.0
+            )
+
+    def enable_learning(self):
+        if not self.is_disabled_ever:
+            return
+        for source, target, connection in self.connections:
+            connection.update_rule = self.temp_update_rule[(source, target)]
 
     def add_to_network(self, network: Network):
         for name, pop in self.pops:
@@ -53,7 +77,6 @@ class LayerModule(AbstractConnectable):
         node_type=LIFNodes, 
         connection_type=Connection,
         exc_args={}, 
-        exc_con_args={},
         inh_con_args={},
         exc_rec_con_args={},
         monitor: bool = False,
@@ -68,13 +91,13 @@ class LayerModule(AbstractConnectable):
         exc2 = node_type(n=exc_size, **exc_args)
 
 
-        exc1_exc1 = connection_type(
-            source=exc1, target=exc1 , **exc_rec_con_args
-        )
+        # exc1_exc1 = connection_type(
+        #     source=exc1, target=exc1 , **exc_rec_con_args
+        # )
 
-        exc2_exc2 = connection_type(
-            source=exc2, target=exc2 , **exc_rec_con_args
-        )
+        # exc2_exc2 = connection_type(
+        #     source=exc2, target=exc2 , **exc_rec_con_args
+        # )
 
         exc1_exc2_inh = connection_type(
             source=exc1, target=exc2 , **inh_con_args
@@ -92,8 +115,8 @@ class LayerModule(AbstractConnectable):
         self.connections = [
             (self.pops[0][0], self.pops[1][0], exc1_exc2_inh), 
             (self.pops[1][0], self.pops[0][0], exc2_exc1_inh),
-            (self.pops[0][0], self.pops[0][0], exc1_exc1),
-            (self.pops[1][0], self.pops[1][0], exc2_exc2),
+            # (self.pops[0][0], self.pops[0][0], exc1_exc1),
+            # (self.pops[1][0], self.pops[1][0], exc2_exc2),
         ]
 
         if monitor:
@@ -114,21 +137,21 @@ class LayerModule(AbstractConnectable):
         return torch.mean(self.classifications)
 
 
-class AbstractLayerConnection(ABC):
-    def __init__(self):
-        super().__init__()
-        self.connections = []
+# class AbstractLayerConnection(ABC):
+#     def __init__(self):
+#         super().__init__()
+#         self.connections = []
 
-    def add_to_network(self, network: Network):
-        for source, target, connection in self.connections:
-            network.add_connection(connection, source, target)
+#     def add_to_network(self, network: Network):
+#         for source, target, connection in self.connections:
+#             network.add_connection(connection, source, target)
 
 
-class LayerConnection(AbstractLayerConnection):
+class LayerConnection(AbstractConnectable):
     def __init__(
         self,
         source: Union[AbstractConnectable, Tuple[str, Nodes]],
-        target,
+        target: Union[AbstractConnectable, Tuple[str, Nodes]],
         connection_type=Connection,
         connection_args={}
     ):

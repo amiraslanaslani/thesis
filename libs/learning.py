@@ -1,7 +1,8 @@
+from abc import ABC
 from typing import Union, Optional, Sequence
 
 import torch
-from bindsnet.learning import PostPre, LearningRule, MSTDPET
+from bindsnet.learning import PostPre, LearningRule, MSTDPET, MSTDP
 from bindsnet.network.topology import (
     AbstractConnection,
     Connection,
@@ -163,10 +164,58 @@ class PostPreInh(LearningRule):
 #             "This learning rule is not supported for this Connection type."
 #         )
 
+class AbstractSeasonalLearning(ABC):
+    def trigger(self, reward: float):
+        tmp = self.season_sum
+        self.connection.w += self.season_sum * reward
+        self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
+        return tmp
 
 
+class RSTDP_SEASONAL(PostPre, AbstractSeasonalLearning):
+    def __init__(
+        self,
+        connection: AbstractConnection,
+        nu: Optional[Union[float, Sequence[float]]] = None,
+        reduction: Optional[callable] = None,
+        weight_decay: float = 0.0,
+        **kwargs
+    ) -> None:
+        super().__init__(
+            connection=connection,
+            nu=nu,
+            reduction=reduction,
+            weight_decay=weight_decay,
+            **kwargs
+        )
+        self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
 
-class MSTDPET_SEASONAL(MSTDPET):
+    def _connection_update(self, **kwargs) -> None:
+        # language=rst
+        """
+        Post-pre learning rule for ``Connection`` subclass of ``AbstractConnection``
+        class.
+        """
+        batch_size = self.source.batch_size
+
+        source_s = self.source.s.view(batch_size, -1).unsqueeze(2).float()
+        source_x = self.source.x.view(batch_size, -1).unsqueeze(2)
+        target_s = self.target.s.view(batch_size, -1).unsqueeze(1).float()
+        target_x = self.target.x.view(batch_size, -1).unsqueeze(1)
+
+        # Pre-synaptic update.
+        if self.nu[0]:
+            update = self.reduction(torch.bmm(source_s, target_x), dim=0)
+            self.season_sum -= self.nu[0] * update
+
+        # Post-synaptic update.
+        if self.nu[1]:
+            update = self.reduction(torch.bmm(source_x, target_s), dim=0)
+            self.season_sum += self.nu[1] * update
+
+        super().update()
+
+class MSTDP_SEASONAL(MSTDP, AbstractSeasonalLearning):
 
     def __init__(
         self,
@@ -185,11 +234,60 @@ class MSTDPET_SEASONAL(MSTDPET):
         )
         self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
 
-    def trigger(self, reward: float):
-        tmp = self.season_sum
-        self.connection.w += self.season_sum * reward
+    def _connection_update(self, **kwargs) -> None:
+        batch_size = self.source.batch_size
+
+        # Initialize eligibility, P^+, and P^-.
+        if not hasattr(self, "p_plus"):
+            self.p_plus = torch.zeros(batch_size, *self.source.shape)
+        if not hasattr(self, "p_minus"):
+            self.p_minus = torch.zeros(batch_size, *self.target.shape)
+        if not hasattr(self, "eligibility"):
+            self.eligibility = torch.zeros(batch_size, *self.connection.w.shape)
+
+        # Reshape pre- and post-synaptic spikes.
+        source_s = self.source.s.view(batch_size, -1).float()
+        target_s = self.target.s.view(batch_size, -1).float()
+
+        # Parse keyword arguments.
+        a_plus = torch.tensor(kwargs.get("a_plus", 1.0))
+        a_minus = torch.tensor(kwargs.get("a_minus", -1.0))
+
+        # Compute weight update based on the eligibility value of the past timestep.
+        self.season_sum += self.nu[0] * self.reduction(self.eligibility, dim=0)
+
+        # Update P^+ and P^- values.
+        self.p_plus *= torch.exp(-self.connection.dt / self.tc_plus)
+        self.p_plus += a_plus * source_s
+        self.p_minus *= torch.exp(-self.connection.dt / self.tc_minus)
+        self.p_minus += a_minus * target_s
+
+        # Calculate point eligibility value.
+        self.eligibility = torch.bmm(
+            self.p_plus.unsqueeze(2), target_s.unsqueeze(1)
+        ) + torch.bmm(source_s.unsqueeze(2), self.p_minus.unsqueeze(1))
+
+        super().update()
+        
+
+class MSTDPET_SEASONAL(MSTDPET, AbstractSeasonalLearning):
+
+    def __init__(
+        self,
+        connection: AbstractConnection,
+        nu: Optional[Union[float, Sequence[float]]] = None,
+        reduction: Optional[callable] = None,
+        weight_decay: float = 0.0,
+        **kwargs
+    ) -> None:
+        super().__init__(
+            connection=connection,
+            nu=nu,
+            reduction=reduction,
+            weight_decay=weight_decay,
+            **kwargs
+        )
         self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
-        return tmp
 
     def _connection_update(self, **kwargs) -> None:
         # Initialize eligibility, eligibility trace, P^+, and P^-.
