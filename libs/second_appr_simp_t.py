@@ -3,15 +3,21 @@ import random
 
 import torch
 from typing import Tuple, Union
-from bindsnet.network.nodes import LIFNodes, Nodes, AdaptiveLIFNodes
+from bindsnet.network.nodes import LIFNodes, Nodes
 from bindsnet.network.topology import Connection
 from bindsnet.network import Network
 from bindsnet.learning.reward import AbstractReward
 from bindsnet.learning.learning import NoOp
 from bindsnet.network.monitors import Monitor
 
+
 LAYER_23 = 1
 LAYER_4 = 2
+
+
+def load(file_name):
+    return torch.load(file_name)
+
 
 class AbstractConnectable(ABC):
     def __init__(self) -> None:
@@ -68,6 +74,47 @@ class AbstractConnectable(ABC):
     def pops_reset_state_variables(self):
         for pop in self.pops:
             pop[1].reset_state_variables()
+        for submodule in self.submodules:
+            submodule.pops_reset_state_variables()
+
+    def monitors_reset_state_variables(self):
+        for _, monitor in self.monitors:
+            monitor.reset_state_variables()
+        for submodule in self.submodules:
+            submodule.monitors_reset_state_variables()
+
+    def connections_reset_state_variables(self):
+        for _, _, connection in self.connections:
+            connection.reset_state_variables()
+        for submodule in self.submodules:
+            submodule.connections_reset_state_variables()
+
+    def reset_state_variables(self):
+        self.monitors_reset_state_variables()
+        self.pops_reset_state_variables()
+        self.connections_reset_state_variables()
+
+    def save(self, file, reset=True):
+        if reset:
+            self.reset_state_variables()
+        torch.save(self, file)
+
+
+class ComplexStructure(AbstractConnectable):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def add_pop(self, name: str, pop: Nodes):
+        self.pops.append((name, pop))
+
+    def add_submodule(self, submodule: AbstractConnectable):
+        self.submodules.append(submodule)
+
+    def add_inpops(self, inpops_list: list):
+        self.inpops += inpops_list
+
+    def add_outpops(self, outpops_list: list):
+        self.outpops += outpops_list
 
 
 class LayerModule(AbstractConnectable):
@@ -78,7 +125,7 @@ class LayerModule(AbstractConnectable):
         connection_type=Connection,
         exc_args={}, 
         inh_con_args={},
-        exc_rec_con_args={},
+        # exc_rec_con_args={},
         monitor: bool = False,
         name=f"layer{random.randint(0,9999)}",
     ):
@@ -170,7 +217,7 @@ class LayerConnection(AbstractConnectable):
                 )
 
 
-class CorticalColumn(AbstractConnectable):
+class CorticalColumn(ComplexStructure):
     def __init__(
         self,
         connection_args,
@@ -185,12 +232,19 @@ class CorticalColumn(AbstractConnectable):
         self.l23 = LayerModule(**layer_args_23, name=f"{name}_l23_", monitor=monitor[0]=='1')
         self.l4 = LayerModule(**layer_args_l4, name=f"{name}_l4_", monitor=monitor[1]=='1')
         self.l4_l23 = LayerConnection(self.l4, self.l23, connection_type, connection_args)
+
+        self.add_submodule(self.l23)
+        self.add_submodule(self.l4)
+        self.add_submodule(self.l4_l23)
+
+        self.add_inpops(self.l4.get_input_pops())
+        self.add_outpops(self.l23.get_output_pops())
         
-        self.pops = [] + self.l23.pops + self.l4.pops
-        self.inpops = [] + self.l4.get_input_pops()
-        self.outpops = [] + self.l23.get_output_pops()
-        self.connections = [] + self.l4_l23.connections + self.l23.connections + self.l4.connections
-        self.submodules = [self.l23, self.l4]
+        # self.pops = [] + self.l23.pops + self.l4.pops
+        # self.inpops = [] + self.l4.get_input_pops()
+        # self.outpops = [] + self.l23.get_output_pops()
+        # self.connections = [] + self.l4_l23.connections + self.l23.connections + self.l4.connections
+        # self.submodules = [self.l23, self.l4, self.l4_l23]
 
     def classification(self) -> float:
         return self.l23.classification()
