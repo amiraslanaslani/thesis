@@ -66,7 +66,7 @@ class AbstractConnectable(ABC):
         return self.inpops
 
     def get_output_pops(self):
-        return self.inpops
+        return self.outpops
 
     def classification(self) -> float:
         return 0
