@@ -1,8 +1,10 @@
-from typing import Union, Optional, Sequence
+from math import floor
+from typing import Tuple, Union, Optional, Sequence
 
 import torch
 from torch.nn import Parameter
-from bindsnet.network.topology import Connection
+import torch.nn.functional as F
+from bindsnet.network.topology import Connection, AbstractConnection
 from bindsnet.network.nodes import Nodes
 
 
@@ -64,3 +66,99 @@ class RandomConnection(ConnectionWithConvergence):
 #         # torch.clamp_(self.w[:self.inhibitory_n,:], min=self.wmin, max=0.)
 #         # torch.clamp_(self.w[self.inhibitory_n:,:], min=0., max=self.wmax)
 
+
+def get_output_size_maxpool1d(
+    source: Union[int, Nodes],
+    kernel_size: Union[int, Tuple[int]],
+    stride: Union[int, Tuple[int]] = 1,
+    padding: Union[int, Tuple[int]] = 0,
+    dilation: Union[int, Tuple[int]] = 1,
+    **kwargs
+):
+    source_size = source if isinstance(source, int) else source.n
+    return floor((source_size + 2 * padding - dilation * (kernel_size - 1) - 1) / stride + 1)
+
+
+class MaxPool1dConnection(AbstractConnection):
+    # language=rst
+    """
+    Specifies max-pooling synapses between one or two populations of neurons by keeping
+    online estimates of maximally firing neurons.
+    """
+
+    def __init__(
+        self,
+        source: Nodes,
+        target: Nodes,
+        kernel_size: int,
+        stride: int = 1,
+        padding: int = 0,
+        dilation: int = 1,
+        weight: int = 14.0,
+        **kwargs,
+    ) -> None:
+        # language=rst
+        """
+        Instantiates a ``MaxPool1dConnection`` object.
+        :param source: A layer of nodes from which the connection originates.
+        :param target: A layer of nodes to which the connection connects.
+        :param kernel_size: the size of 1-D convolutional kernel.
+        :param stride: stride for convolution.
+        :param padding: padding for convolution.
+        :param dilation: dilation for convolution.
+        Keyword arguments:
+        :param decay: Decay rate of online estimates of average firing activity.
+        """
+        super().__init__(source, target, None, None, 0.0, **kwargs)
+
+        self.kernel_size = kernel_size
+        self.stride = stride
+        self.padding = padding
+        self.dilation = dilation
+        self.converge = torch.tensor([0.0])
+        self.weight = weight
+
+    def compute(self, s: torch.Tensor) -> torch.Tensor:
+        # language=rst
+        """
+        Compute max-pool pre-activations given spikes using online firing rate
+        estimates.
+        :param s: Incoming spikes.
+        :return: Incoming spikes multiplied by synaptic weights (with or without
+            decaying spike activation).
+        """
+
+
+        x = F.max_pool1d(
+            self.source.s.unsqueeze(0).float(),
+            kernel_size=self.kernel_size,
+            stride=self.stride,
+            padding=self.padding,
+            dilation=self.dilation
+        )
+
+        return x.view((self.target.n,)).float() * self.weight
+
+    def update(self, **kwargs) -> None:
+        # language=rst
+        """
+        Compute connection's update rule.
+        """
+        super().update(**kwargs)
+
+    def normalize(self) -> None:
+        # language=rst
+        """
+        No weights -> no normalization.
+        """
+
+    def reset_state_variables(self) -> None:
+        # language=rst
+        """
+        Contains resetting logic for the connection.
+        """
+        super().reset_state_variables()
+
+        self.firing_rates = torch.zeros(
+            self.source.batch_size, *(self.source.s.shape[1:])
+        )
