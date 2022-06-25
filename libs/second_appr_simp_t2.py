@@ -70,13 +70,15 @@ class AbstractConnectable(ABC):
         return self.outpops
 
     def pops_reset_state_variables(self):
-        for pop in self.pops:
-            pop[1].reset_state_variables()
+        for _, pop in self.pops:
+            pop.reset_state_variables()
         for submodule in self.submodules:
             submodule.pops_reset_state_variables()
 
     def monitors_reset_state_variables(self):
         for _, monitor in self.monitors:
+            if hasattr(monitor, 'network'):
+                delattr(monitor, 'network')
             monitor.reset_state_variables()
         for submodule in self.submodules:
             submodule.monitors_reset_state_variables()
