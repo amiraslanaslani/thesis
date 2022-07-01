@@ -1,6 +1,6 @@
 from abc import ABC
 import random
-from typing import Tuple, Union
+from typing import Tuple, Union, List
 
 import torch
 from bindsnet.network.nodes import LIFNodes, Nodes
@@ -29,8 +29,8 @@ class AbstractConnectable(ABC):
         self.inpops = []
         self.outpops = []
         self.connections = []
-        self.monitors = []
-        self.submodules = []
+        self.monitors: Tuple[str, Monitor] = []
+        self.submodules: List[AbstractConnectable] = []
 
     def disable_learning(self, decay=False):
         if not self.is_disabled_ever:
@@ -46,12 +46,16 @@ class AbstractConnectable(ABC):
                 connection.reduction, 
                 connection.weight_decay if decay else 0.0
             )
+        for submodul in self.submodules:
+            submodul.disable_learning()
 
     def enable_learning(self):
         if not self.is_disabled_ever:
             return
         for source, target, connection in self.connections:
             connection.update_rule = self.temp_update_rule[(source, target)]
+        for submodul in self.submodules:
+            submodul.enable_learning()
 
     def add_to_network(self, network: Network):
         for name, pop in self.pops:
