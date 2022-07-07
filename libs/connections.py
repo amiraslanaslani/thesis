@@ -162,3 +162,104 @@ class MaxPool1dConnection(AbstractConnection):
         self.firing_rates = torch.zeros(
             self.source.batch_size, *(self.source.s.shape[1:])
         )
+
+class BackwardConnections(AbstractConnection):
+    def __init__(
+        self, 
+        source: Nodes, 
+        target: Nodes, 
+        nu: Optional[Union[float, Sequence[float]]] = None, 
+        reduction: Optional[callable] = None, 
+        weight_decay: float = 0, 
+        potential_percent: float = 0.90,
+        connection_rate: float = 1.0,
+        before_computation_delay: int = 0,
+        after_computation_delay: int = 0,
+        behavior: str = "exc", # exc, inh
+        **kwargs
+    ) -> None:
+        super().__init__(source, target, nu, reduction, weight_decay, **kwargs)
+        self.potential_percent = potential_percent
+        self.connection_rate = connection_rate
+        self.after_computation_delay = after_computation_delay
+        self.before_computation_delay = before_computation_delay
+
+        if behavior == "exc":
+            self.compute = self._compute_exc
+        elif behavior == "inh":
+            self.compute = self._compute_inh
+        else:
+            raise NotImplementedError(
+                f"This type of behavior ({behavior}) is not valid/implemented."
+            )
+
+        self.w = torch.ones(source.n, target.n).bool()
+        self.w &= torch.rand(source.n, target.n) <= connection_rate
+        self.w = self.w.float() * self.potential_percent
+        if self.after_computation_delay > 0:
+            self.after_computation_delay_window = torch.zeros((self.after_computation_delay + 2, self.target.n,))
+        if self.before_computation_delay > 0:
+            self.before_computation_delay_window = torch.zeros((self.before_computation_delay + 2, self.source.n,))
+
+    def _compute_after_computation_delay_window(self, current_output) -> torch.Tensor:
+        if self.after_computation_delay == 0:
+            return current_output
+        will_return  = self.after_computation_delay_window[-1].clone().detach()
+        self.after_computation_delay_window[-1] = current_output
+        self.after_computation_delay_window = torch.roll(self.after_computation_delay_window, shifts=1, dims=0)
+        return will_return
+
+    def _compute_before_computation_delay_window(self, spikes) -> torch.Tensor:
+        if self.before_computation_delay == 0:
+            return spikes
+        will_return  = self.before_computation_delay_window[-1].clone().detach()
+        self.before_computation_delay_window[-1] = spikes
+        self.before_computation_delay_window = torch.roll(self.before_computation_delay_window, shifts=1, dims=0)
+        return will_return
+
+    def _get_commulative_percentage_picking(self, percentages, spikes):
+        # print("==========")
+        # print(self.w)
+        # print(spikes.bool().flatten())
+        # print(self.w[spikes.bool().flatten()])
+        # print(torch.prod(1 - self.w[spikes.bool().flatten()], axis=0))
+        increase_percentage = 1 - torch.prod(1 - self.w[spikes.bool().flatten()], axis=0)
+        # print(percentages, increase_percentage, percentages * increase_percentage)
+        potentiations = percentages * increase_percentage
+        return potentiations.view((self.target.n,))
+    
+    def _compute_exc(self, s: torch.Tensor) -> torch.Tensor:
+        # print(" >>> ", s)
+        super().compute(s)
+        spikes = self._compute_before_computation_delay_window(s)
+        target_needed_potential = self.target.thresh - self.target.v
+        result = self._get_commulative_percentage_picking(target_needed_potential, spikes)
+        return self._compute_after_computation_delay_window(result)
+    
+    def _compute_inh(self, s: torch.Tensor) -> torch.Tensor:
+        super().compute(s)
+        spikes = self._compute_before_computation_delay_window(s)
+        target_needed_potential = self.target.rest - self.target.thresh
+        result = self._get_commulative_percentage_picking(target_needed_potential, spikes)
+        return self._compute_after_computation_delay_window(result)
+        
+    def compute(self, s: torch.Tensor) -> None:
+        pass
+
+    def reset_state_variables(self) -> None:
+        if self.delay > 0:
+            self.delay_window = torch.zeros((self.delay, self.target.n,))
+        return super().reset_state_variables()
+
+    def update(self, **kwargs) -> None:
+        # language=rst
+        """
+        Compute connection's update rule.
+        """
+        super().update(**kwargs)
+
+    def normalize(self) -> None:
+        # language=rst
+        """
+        No weights -> no normalization.
+        """
