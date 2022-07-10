@@ -171,18 +171,20 @@ class BackwardConnections(AbstractConnection):
         nu: Optional[Union[float, Sequence[float]]] = None, 
         reduction: Optional[callable] = None, 
         weight_decay: float = 0, 
-        potential_percent: float = 0.90,
+        potential_percent="random", # static:float | "random" | "random", min:float, max:float
         connection_rate: float = 1.0,
         before_computation_delay: int = 0,
         after_computation_delay: int = 0,
         behavior: str = "exc", # exc, inh
+        direct_voltage_manipulation: bool = False,
         **kwargs
     ) -> None:
         super().__init__(source, target, nu, reduction, weight_decay, **kwargs)
-        self.potential_percent = potential_percent
+        self.potential_percent = potential_percent if isinstance(potential_percent, tuple) else (potential_percent, 0., 1.)
         self.connection_rate = connection_rate
         self.after_computation_delay = after_computation_delay
         self.before_computation_delay = before_computation_delay
+        self.direct_voltage_manipulation = direct_voltage_manipulation
 
         if behavior == "exc":
             self.compute = self._compute_exc
@@ -194,12 +196,24 @@ class BackwardConnections(AbstractConnection):
             )
 
         self.w = torch.ones(source.n, target.n).bool()
-        self.w &= torch.rand(source.n, target.n) <= connection_rate
-        self.w = self.w.float() * self.potential_percent
+        self.mask = torch.rand(source.n, target.n) <= connection_rate
+        self.w = (self.w & self.mask).float()
+        if self.potential_percent[0] == "random":
+            self.w *= torch.rand(self.w.size()) * (self.potential_percent[2] - self.potential_percent[1]) + self.potential_percent[1]
+        elif isinstance(self.potential_percent[0], float):
+            self.w = self.w.float() * self.potential_percent[0]
+
         if self.after_computation_delay > 0:
             self.after_computation_delay_window = torch.zeros((self.after_computation_delay + 2, self.target.n,))
         if self.before_computation_delay > 0:
             self.before_computation_delay_window = torch.zeros((self.before_computation_delay + 2, self.source.n,))
+
+    def direct_manipulation(self, output_current):
+        if self.direct_voltage_manipulation:
+            self.target.v += (self.target.refrac_count == 0).float() * output_current
+            return torch.zeros_like(output_current)
+        else:
+            return output_current
 
     def _compute_after_computation_delay_window(self, current_output) -> torch.Tensor:
         if self.after_computation_delay == 0:
@@ -218,37 +232,34 @@ class BackwardConnections(AbstractConnection):
         return will_return
 
     def _get_commulative_percentage_picking(self, percentages, spikes):
-        # print("==========")
-        # print(self.w)
-        # print(spikes.bool().flatten())
-        # print(self.w[spikes.bool().flatten()])
-        # print(torch.prod(1 - self.w[spikes.bool().flatten()], axis=0))
         increase_percentage = 1 - torch.prod(1 - self.w[spikes.bool().flatten()], axis=0)
-        # print(percentages, increase_percentage, percentages * increase_percentage)
         potentiations = percentages * increase_percentage
         return potentiations.view((self.target.n,))
     
     def _compute_exc(self, s: torch.Tensor) -> torch.Tensor:
-        # print(" >>> ", s)
         super().compute(s)
         spikes = self._compute_before_computation_delay_window(s)
         target_needed_potential = self.target.thresh - self.target.v
         result = self._get_commulative_percentage_picking(target_needed_potential, spikes)
-        return self._compute_after_computation_delay_window(result)
+        result = self._compute_after_computation_delay_window(result)
+        return self.direct_manipulation(result)
     
     def _compute_inh(self, s: torch.Tensor) -> torch.Tensor:
         super().compute(s)
         spikes = self._compute_before_computation_delay_window(s)
         target_needed_potential = self.target.rest - self.target.thresh
         result = self._get_commulative_percentage_picking(target_needed_potential, spikes)
-        return self._compute_after_computation_delay_window(result)
+        result = self._compute_after_computation_delay_window(result)
+        return self.direct_manipulation(result)
         
     def compute(self, s: torch.Tensor) -> None:
         pass
 
     def reset_state_variables(self) -> None:
-        if self.delay > 0:
-            self.delay_window = torch.zeros((self.delay, self.target.n,))
+        if self.after_computation_delay > 0:
+            self.after_computation_delay_window = torch.zeros((self.after_computation_delay, self.target.n,))
+        if self.before_computation_delay > 0:
+            self.before_computation_delay_window = torch.zeros((self.before_computation_delay, self.target.n,))
         return super().reset_state_variables()
 
     def update(self, **kwargs) -> None:
