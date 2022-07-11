@@ -17,6 +17,7 @@ class ConnectionWithConvergence(Connection):
         self.converge = ((self.wmax - self.w) * (self.w - self.wmin)).sum()
         return super().compute(s)
 
+
 class RandomConnection(ConnectionWithConvergence):
     def __init__(
         self, 
@@ -177,6 +178,7 @@ class BackwardConnections(AbstractConnection):
         after_computation_delay: int = 0,
         behavior: str = "exc", # exc, inh
         direct_voltage_manipulation: bool = False,
+        enable: bool = True,
         **kwargs
     ) -> None:
         super().__init__(source, target, nu, reduction, weight_decay, **kwargs)
@@ -185,11 +187,13 @@ class BackwardConnections(AbstractConnection):
         self.after_computation_delay = after_computation_delay
         self.before_computation_delay = before_computation_delay
         self.direct_voltage_manipulation = direct_voltage_manipulation
+        self.enable = enable
+        self.behavior = behavior
 
         if behavior == "exc":
-            self.compute = self._compute_exc
+            self.get_target_needed_potential = self._compute_exc_target_needed_potential
         elif behavior == "inh":
-            self.compute = self._compute_inh
+            self.get_target_needed_potential = self._compute_inh_target_needed_potential
         else:
             raise NotImplementedError(
                 f"This type of behavior ({behavior}) is not valid/implemented."
@@ -207,6 +211,12 @@ class BackwardConnections(AbstractConnection):
             self.after_computation_delay_window = torch.zeros((self.after_computation_delay + 2, self.target.n,))
         if self.before_computation_delay > 0:
             self.before_computation_delay_window = torch.zeros((self.before_computation_delay + 2, self.source.n,))
+
+    def set_enable(self):
+        self.enable = True
+
+    def set_disable(self):
+        self.enable = False
 
     def direct_manipulation(self, output_current):
         if self.direct_voltage_manipulation:
@@ -236,24 +246,29 @@ class BackwardConnections(AbstractConnection):
         potentiations = percentages * increase_percentage
         return potentiations.view((self.target.n,))
     
-    def _compute_exc(self, s: torch.Tensor) -> torch.Tensor:
-        super().compute(s)
-        spikes = self._compute_before_computation_delay_window(s)
-        target_needed_potential = self.target.thresh - self.target.v
-        result = self._get_commulative_percentage_picking(target_needed_potential, spikes)
-        result = self._compute_after_computation_delay_window(result)
-        return self.direct_manipulation(result)
+    def _compute_exc_target_needed_potential(self) -> torch.Tensor:
+        return self.target.thresh - self.target.v
     
-    def _compute_inh(self, s: torch.Tensor) -> torch.Tensor:
-        super().compute(s)
-        spikes = self._compute_before_computation_delay_window(s)
-        target_needed_potential = self.target.rest - self.target.thresh
-        result = self._get_commulative_percentage_picking(target_needed_potential, spikes)
-        result = self._compute_after_computation_delay_window(result)
-        return self.direct_manipulation(result)
+    def _compute_inh_target_needed_potential(self) -> torch.Tensor:
+        return self.target.rest - self.target.thresh
+
+    def get_target_needed_potential(self):
+        """
+        At the begining, in __init__ function, this function will be setted to one of these functions:
+        -    _compute_exc_target_needed_potential
+        -    _compute_inh_target_needed_potential
+        """
+        pass
         
     def compute(self, s: torch.Tensor) -> None:
-        pass
+        if not self.enable:
+            return torch.zeros((1, self.target.n))
+        super().compute(s)
+        spikes = self._compute_before_computation_delay_window(s)
+        target_needed_potential = self.get_target_needed_potential()
+        result = self._get_commulative_percentage_picking(target_needed_potential, spikes)
+        result = self._compute_after_computation_delay_window(result)
+        return self.direct_manipulation(result)
 
     def reset_state_variables(self) -> None:
         if self.after_computation_delay > 0:
@@ -267,6 +282,8 @@ class BackwardConnections(AbstractConnection):
         """
         Compute connection's update rule.
         """
+        if not self.enable:
+            return
         super().update(**kwargs)
 
     def normalize(self) -> None:
