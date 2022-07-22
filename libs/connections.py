@@ -3,6 +3,8 @@ from typing import Tuple, Union, Optional, Sequence
 
 import torch
 from torch.nn import Parameter
+from torch.distributions.distribution import Distribution
+from torch.distributions.uniform import Uniform
 import torch.nn.functional as F
 from bindsnet.network.topology import Connection, AbstractConnection
 from bindsnet.network.nodes import Nodes
@@ -172,7 +174,8 @@ class BackwardConnections(AbstractConnection):
         nu: Optional[Union[float, Sequence[float]]] = None, 
         reduction: Optional[callable] = None, 
         weight_decay: float = 0, 
-        potential_percent="random", # static:float | "random" | "random", min:float, max:float
+        # potential_percent="random", # static:float | "random" | "random", min:float, max:float
+        potential_percent: Union[Distribution, float] = Uniform(0, 1),
         connection_rate: float = 1.0,
         before_computation_delay: int = 0,
         after_computation_delay: int = 0,
@@ -182,13 +185,17 @@ class BackwardConnections(AbstractConnection):
         **kwargs
     ) -> None:
         super().__init__(source, target, nu, reduction, weight_decay, **kwargs)
-        self.potential_percent = potential_percent if isinstance(potential_percent, tuple) else (potential_percent, 0., 1.)
         self.connection_rate = connection_rate
         self.after_computation_delay = after_computation_delay
         self.before_computation_delay = before_computation_delay
         self.direct_voltage_manipulation = direct_voltage_manipulation
         self.enable = enable
         self.behavior = behavior
+
+        if isinstance(potential_percent, (float, int)):
+            from utils import ConstantDistribution
+            potential_percent = ConstantDistribution(constant=potential_percent)
+        self.potential_percent = potential_percent
 
         if behavior == "exc":
             self.get_target_needed_potential = self._compute_exc_target_needed_potential
@@ -199,13 +206,10 @@ class BackwardConnections(AbstractConnection):
                 f"This type of behavior ({behavior}) is not valid/implemented."
             )
 
-        self.w = torch.ones(source.n, target.n).bool()
+        self.w = torch.ones(source.n, target.n)
         self.mask = torch.rand(source.n, target.n) <= connection_rate
-        self.w = (self.w & self.mask).float()
-        if self.potential_percent[0] == "random":
-            self.w *= torch.rand(self.w.size()) * (self.potential_percent[2] - self.potential_percent[1]) + self.potential_percent[1]
-        elif isinstance(self.potential_percent[0], float):
-            self.w = self.w.float() * self.potential_percent[0]
+        self.w *= self.mask
+        self.w *= self.potential_percent.sample(self.w.size())
 
         if self.after_computation_delay > 0:
             self.after_computation_delay_window = torch.zeros((self.after_computation_delay + 2, self.target.n,))
@@ -285,6 +289,7 @@ class BackwardConnections(AbstractConnection):
         if not self.enable:
             return
         super().update(**kwargs)
+        self.w *= self.mask
 
     def normalize(self) -> None:
         # language=rst

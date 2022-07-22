@@ -9,7 +9,7 @@ from bindsnet.network import Network
 from bindsnet.learning.learning import NoOp
 from bindsnet.network.monitors import Monitor
 
-from libs.connections import MaxPool1dConnection
+from libs.connections import MaxPool1dConnection, BackwardConnections
 
 
 LAYER_23 = 1
@@ -186,6 +186,10 @@ class LayerConnection(AbstractConnectable):
                     )
                 )
 
+    def broadcast(self, method: str, *args, **kwargs):
+        for _, target, connection in self.connections:
+            getattr(connection, method)(*args, **kwargs)
+
 
 class CorticalColumn(ComplexStructure):
     def __init__(
@@ -193,8 +197,10 @@ class CorticalColumn(ComplexStructure):
         connection_args,
         layer_args_23,
         layer_args_l4,
+        backward_args={},
         monitor=0,  # LAYER_23 | LAYER_4
-        name=f"column{random.randint(0,9999)}",
+        name: str = f"column{random.randint(0,9999)}",
+        backward: bool = False,
     ):
         super().__init__()
         monitor = "{0:0>8b}".format(monitor)[::-1]
@@ -202,6 +208,15 @@ class CorticalColumn(ComplexStructure):
         self.l4 = LayerModule(**layer_args_l4, name=f"{name}_l4_", monitor=monitor[1]=='1')
         con1 = MaxPool1dConnection(self.l4.pops[0][1], self.l23.pops[0][1], **connection_args)
         con2 = MaxPool1dConnection(self.l4.pops[1][1], self.l23.pops[1][1], **connection_args)
+
+        if backward:
+            self.backward_connection = LayerConnection(
+                self.l23, 
+                self.l4, 
+                connection_type=BackwardConnections, 
+                connection_args=backward_args
+            )
+            self.add_submodule(self.backward_connection)
 
         self.add_connection(self.l4.pops[0][0], self.l23.pops[0][0], con1)
         self.add_connection(self.l4.pops[1][0], self.l23.pops[1][0], con2)
