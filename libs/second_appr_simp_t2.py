@@ -67,6 +67,20 @@ class AbstractConnectable(ABC):
         for submodule in self.submodules:
             submodule.add_to_network(network)
 
+    def get_connections(self, recursively=True):
+        result = self.connections.copy()
+        if recursively:
+            for submodule in self.submodules:
+                result += submodule.get_connections()
+        return result
+
+    def get_populations(self, recursively=True):
+        result = self.pops.copy()
+        if recursively:
+            for submodule in self.submodules:
+                result += submodule.get_populations()
+        return result
+
     def get_input_pops(self):
         return self.inpops
 

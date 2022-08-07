@@ -199,7 +199,7 @@ class AbstractSeasonalLearning(ABC):
         return tmp
 
 
-class RSTDP_SEASONAL(PostPre, AbstractSeasonalLearning):
+class RSTDP_SEASONAL(PostPreWMatrix, AbstractSeasonalLearning):
     def __init__(
         self,
         connection: AbstractConnection,
