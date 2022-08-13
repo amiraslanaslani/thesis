@@ -46,19 +46,19 @@ class PostPreInh(LearningRule):
         def g(x, c, m):   
             return torch.exp(-((x - m)*(x - m)) / (2*c*c))
 
-        self.p_window = self.nu[0] * g(
+        self.p_window = self.nu[1] * g(
             torch.arange(0, self.windows_size),
             windows_std,
             self.windows_size / 2
         )
 
-        self.n_window = self.nu[1] * g(
+        self.n_window = self.nu[0] * g(
             torch.arange(0, self.windows_size),
             windows_std,
             self.windows_size / 2
         )
 
-    def update(self, **kwargs) -> None:
+    def get_changes(self) -> torch.Tensor:
         if not self.is_cuda and self.source.s.is_cuda:
             self.is_cuda = True
             self.windows_negative = self.windows_negative.cuda()
@@ -75,8 +75,12 @@ class PostPreInh(LearningRule):
         self.windows_positive[self.source.s.bool()[0]] += self.p_window
         self.windows_negative[self.target.s.bool()[0]] += self.n_window
 
-        changes = (self.source.s.view(self.source.n, 1).float() @ self.windows_negative[:, 0].view(1, self.target.n)) - \
-                  (self.target.s.view(self.target.n, 1).float() @ self.windows_positive[:, 0].view(1, self.source.n)).T
+        changes = (self.target.s.view(self.target.n, 1).float() @ self.windows_positive[:, 0].view(1, self.source.n)).T - \
+                  (self.source.s.view(self.source.n, 1).float() @ self.windows_negative[:, 0].view(1, self.target.n))
+        return changes
+
+    def update(self, **kwargs) -> None:
+        changes = self.get_changes()
         self.connection.w += changes
         self.connection.changes = changes.sum()
         super().update()
@@ -197,6 +201,33 @@ class AbstractSeasonalLearning(ABC):
         self.connection.w += self.season_sum * reward
         self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
         return tmp
+
+class RSTDP_INH_SEASONAL(PostPreInh, AbstractSeasonalLearning):
+    def __init__(
+        self, 
+        connection: AbstractConnection, 
+        nu: Optional[Union[float, Sequence[float]]] = None, 
+        reduction: Optional[callable] = None, 
+        weight_decay: float = 0, 
+        windows_size: int = 30, 
+        windows_std: float = 4, 
+        **kwargs
+    ) -> None:
+        super().__init__(
+            connection, 
+            nu, 
+            reduction, 
+            weight_decay, 
+            windows_size, 
+            windows_std, 
+            **kwargs
+        )
+        self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
+
+    def _connection_update(self, **kwargs) -> None:
+        changes = self.get_changes()
+        self.season_sum += changes
+        super().update()
 
 
 class RSTDP_SEASONAL(PostPreWMatrix, AbstractSeasonalLearning):

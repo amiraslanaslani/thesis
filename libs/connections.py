@@ -193,14 +193,16 @@ class BackwardConnections(AbstractConnection):
         self.behavior = behavior
 
         if isinstance(potential_percent, (float, int)):
-            from utils import ConstantDistribution
+            from libs.utils import ConstantDistribution
             potential_percent = ConstantDistribution(constant=potential_percent)
         self.potential_percent = potential_percent
 
         if behavior == "exc":
             self.get_target_needed_potential = self._compute_exc_target_needed_potential
+            self.weights_cooef = 1
         elif behavior == "inh":
             self.get_target_needed_potential = self._compute_inh_target_needed_potential
+            self.weights_cooef = -1
         else:
             raise NotImplementedError(
                 f"This type of behavior ({behavior}) is not valid/implemented."
@@ -209,7 +211,7 @@ class BackwardConnections(AbstractConnection):
         self.w = torch.ones(source.n, target.n)
         self.mask = torch.rand(source.n, target.n) <= connection_rate
         self.w *= self.mask
-        self.w *= self.potential_percent.sample(self.w.size())
+        self.w *= self.weights_cooef * self.potential_percent.sample(self.w.size())
 
         if self.after_computation_delay > 0:
             self.after_computation_delay_window = torch.zeros((self.after_computation_delay + 2, self.target.n,))
@@ -246,7 +248,7 @@ class BackwardConnections(AbstractConnection):
         return will_return
 
     def _get_commulative_percentage_picking(self, percentages, spikes):
-        increase_percentage = 1 - torch.prod(1 - self.w[spikes.bool().flatten()], axis=0)
+        increase_percentage = 1 - torch.prod(1 - self.weights_cooef * self.w[spikes.bool().flatten()], axis=0)
         potentiations = percentages * increase_percentage
         return potentiations.view((self.target.n,))
     
@@ -254,7 +256,7 @@ class BackwardConnections(AbstractConnection):
         return self.target.thresh - self.target.v
     
     def _compute_inh_target_needed_potential(self) -> torch.Tensor:
-        return self.target.rest - self.target.thresh
+        return self.target.rest - self.target.v
 
     def get_target_needed_potential(self):
         """
