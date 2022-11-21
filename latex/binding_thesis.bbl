@@ -1,0 +1,137 @@
+\begin{thebibliography}{10}
+
+\bibitem{caporale2008spike}
+N.~Caporale, Y.~Dan, et~al.
+\newblock Spike timing-dependent plasticity: a hebbian learning rule.
+\newblock {\em Annual review of neuroscience}, 31(1):25--46, 2008.
+
+\bibitem{carew2000}
+T.~J. Carew.
+\newblock {\em Behavioral Neurobiology}, page 416.
+\newblock Sinauer, 2000.
+
+\bibitem{Douglas2004}
+R.~J. Douglas and K.~A. Martin.
+\newblock {NEURONAL} {CIRCUITS} {OF} {THE} {NEOCORTEX}.
+\newblock {\em Annual Review of Neuroscience}, 27(1):419--451, July 2004.
+
+\bibitem{Feldman2012}
+J.~Feldman.
+\newblock The neural binding problem(s).
+\newblock {\em Cognitive Neurodynamics}, 7(1):1--11, Sept. 2012.
+
+\bibitem{gerstner2014neuronal}
+W.~Gerstner, W.~M. Kistler, R.~Naud, and L.~Paninski.
+\newblock {\em Neuronal dynamics: From single neurons to networks and models of
+  cognition}.
+\newblock Cambridge University Press, 2014.
+
+\bibitem{ghosh2009spiking}
+S.~Ghosh-Dastidar and H.~Adeli.
+\newblock Spiking neural networks.
+\newblock {\em International journal of neural systems}, 19(04):295--308, 2009.
+
+\bibitem{TGNN}
+S.~Ghosh-Dastidar and H.~Adeli.
+\newblock Third generation neural networks: Spiking neural networks.
+\newblock In W.~Yu and E.~N. Sanchez, editors, {\em Advances in Computational
+  Intelligence}, pages 167--178, Berlin, Heidelberg, 2009. Springer Berlin
+  Heidelberg.
+
+\bibitem{goldstein_2019}
+E.~B. Goldstein.
+\newblock {\em Cognitive psychology: connecting mind, research, and everyday
+  experience}.
+\newblock Cengage Learning, 2019.
+
+\bibitem{granger1969investigating}
+C.~Granger.
+\newblock Investigating casual relations by econometric models and cross
+  spectral.
+\newblock 1969.
+
+\bibitem{greff2020binding}
+K.~Greff, S.~Van~Steenkiste, and J.~Schmidhuber.
+\newblock On the binding problem in artificial neural networks.
+\newblock {\em arXiv preprint arXiv:2012.05208}, 2020.
+
+\bibitem{hebb1949organization}
+D.~Hebb.
+\newblock The organization of behavior, mcgill university, 1949.
+
+\bibitem{Horton2005}
+J.~C. Horton and D.~L. Adams.
+\newblock The cortical column: a structure without a function.
+\newblock {\em Philosophical Transactions of the Royal Society B: Biological
+  Sciences}, 360(1456):837--862, Apr. 2005.
+
+\bibitem{Lui2011}
+J.~H. Lui, D.~V. Hansen, and A.~R. Kriegstein.
+\newblock Development and evolution of the human neocortex.
+\newblock {\em Cell}, 146(1):18--36, July 2011.
+
+\bibitem{SNN1997}
+W.~Maass.
+\newblock Networks of spiking neurons: The third generation of neural network
+  models.
+\newblock {\em Neural Networks}, 10(9):1659 -- 1671, 1997.
+
+\bibitem{MateosAparicio2019}
+P.~Mateos-Aparicio and A.~Rodr{\'{\i}}guez-Moreno.
+\newblock The impact of studying brain plasticity.
+\newblock {\em Frontiers in Cellular Neuroscience}, 13, Feb. 2019.
+
+\bibitem{Mozafari2019}
+M.~Mozafari, M.~Ganjtabesh, A.~Nowzari-Dalini, and T.~Masquelier.
+\newblock {SpykeTorch}: Efficient simulation of convolutional spiking neural
+  networks with at most one spike per neuron.
+\newblock {\em Frontiers in Neuroscience}, 13, July 2019.
+
+\bibitem{noback2005human}
+C.~Noback, D.~Ruggiero, N.~Strominger, and R.~Demarest.
+\newblock {\em The Human Nervous System: Structure and Function}.
+\newblock Number no. 744; no. 2005 in SpringerLink: Springer e-Books. Humana
+  Press, 2005.
+
+\bibitem{Pelvig2008-vh}
+D.~P. Pelvig, H.~Pakkenberg, A.~K. Stark, and B.~Pakkenberg.
+\newblock Neocortical glial cell numbers in human brains.
+\newblock {\em Neurobiol. Aging}, 29(11):1754--1762, Nov. 2008.
+
+\bibitem{Purves2001-ns}
+D.~Purves.
+\newblock {\em Neuroscience}.
+\newblock Sinauer Associates, Sunderland, MA, 2 edition, Jan. 2001.
+
+\bibitem{REVONSUO1999123}
+A.~Revonsuo and J.~Newman.
+\newblock Binding and consciousness.
+\newblock {\em Consciousness and Cognition}, 8(2):123--127, 1999.
+
+\bibitem{shatz1992developing}
+C.~J. Shatz.
+\newblock The developing brain.
+\newblock {\em Scientific American}, 267(3):60--67, 1992.
+
+\bibitem{sutton1998reinforcement}
+R.~Sutton, A.~Barto, and C.~Barto.
+\newblock {\em Reinforcement Learning: An Introduction}.
+\newblock A Bradford book. MIT Press, 1998.
+
+\bibitem{TREISMAN1982107}
+A.~Treisman and H.~Schmidt.
+\newblock Illusory conjunctions in the perception of objects.
+\newblock {\em Cognitive Psychology}, 14(1):107--141, 1982.
+
+\bibitem{velic2012}
+R.~Velik.
+\newblock From simple receptors to complex multimodal percepts: A first global
+  picture on the mechanisms involved in perceptual binding.
+\newblock {\em Frontiers in psychology}, 3:259, 07 2012.
+
+\bibitem{vonderMalsburg1999}
+C.~von~der Malsburg.
+\newblock The what and why of binding.
+\newblock {\em Neuron}, 24(1):95--104, Sept. 1999.
+
+\end{thebibliography}
