@@ -15,6 +15,12 @@ R.~J. Douglas and K.~A. Martin.
 \newblock {NEURONAL} {CIRCUITS} {OF} {THE} {NEOCORTEX}.
 \newblock {\em Annual Review of Neuroscience}, 27(1):419--451, July 2004.
 
+\bibitem{EGUCHI2018a}
+J.~B. N.~S. Eguchi, Akihiro;Isbister.
+\newblock The emergence of polychronization and feature binding in a spiking
+  neural network model of the primate ventral visual system.
+\newblock {\em Psychological Review}, 125:545--571, 2018.
+
 \bibitem{Feldman2012}
 J.~Feldman.
 \newblock The neural binding problem(s).
@@ -55,6 +61,23 @@ K.~Greff, S.~Van~Steenkiste, and J.~Schmidhuber.
 \newblock On the binding problem in artificial neural networks.
 \newblock {\em arXiv preprint arXiv:2012.05208}, 2020.
 
+\bibitem{Hawkins2021-rq}
+J.~Hawkins.
+\newblock {\em A Thousand Brains: A new theory of intelligence}.
+\newblock Basic Books, London, England, Mar. 2021.
+
+\bibitem{Hawkins2016}
+J.~Hawkins and S.~Ahmad.
+\newblock Why neurons have thousands of synapses, a theory of sequence memory
+  in neocortex.
+\newblock {\em Frontiers in Neural Circuits}, 10, Mar. 2016.
+
+\bibitem{Hawkins2017}
+J.~Hawkins, S.~Ahmad, and Y.~Cui.
+\newblock A theory of how columns in the neocortex enable learning the
+  structure of the world.
+\newblock {\em Frontiers in Neural Circuits}, 11, Oct. 2017.
+
 \bibitem{hebb1949organization}
 D.~Hebb.
 \newblock The organization of behavior, mcgill university, 1949.
@@ -64,6 +87,17 @@ J.~C. Horton and D.~L. Adams.
 \newblock The cortical column: a structure without a function.
 \newblock {\em Philosophical Transactions of the Royal Society B: Biological
   Sciences}, 360(1456):837--862, Apr. 2005.
+
+\bibitem{Izhikevich2006-dy}
+E.~M. Izhikevich.
+\newblock Polychronization: computation with spikes.
+\newblock {\em Neural Comput.}, 18(2):245--282, Feb. 2006.
+
+\bibitem{Lewis2019}
+M.~Lewis, S.~Purdy, S.~Ahmad, and J.~Hawkins.
+\newblock Locations in the neocortex: A theory of sensorimotor object
+  recognition using cortical grid cells.
+\newblock {\em Frontiers in Neural Circuits}, 13, Apr. 2019.
 
 \bibitem{Lui2011}
 J.~H. Lui, D.~V. Hansen, and A.~R. Kriegstein.
@@ -80,6 +114,13 @@ W.~Maass.
 P.~Mateos-Aparicio and A.~Rodr{\'{\i}}guez-Moreno.
 \newblock The impact of studying brain plasticity.
 \newblock {\em Frontiers in Cellular Neuroscience}, 13, Feb. 2019.
+
+\bibitem{Mountcastle1978}
+V.~B. Mountcastle.
+\newblock An organizing principle for cerebral function: The unit model and the
+  distributed system.
+\newblock In G.~M. Edelman and V.~V. Mountcastle, editors, {\em The Mindful
+  Brain}, pages 7--50. MIT Press, Cambridge, MA, 1978.
 
 \bibitem{Mozafari2019}
 M.~Mozafari, M.~Ganjtabesh, A.~Nowzari-Dalini, and T.~Masquelier.

@@ -14,6 +14,8 @@
 \contentsline {section}{\numberline {2.2}عملکرد شبکه‌های عصبی ضربه‌ای در مسائل مطرح شده}{12}{}%
 \contentsline {section}{\numberline {2.3}تعریف مسئله}{12}{}%
 \contentsline {chapter}{\numberline {3}تحقیقات پیشین}{14}{}%
-\contentsline {chapter}{\numberline {4}مدل پیشنهادی، آزمایش‌ها و نتایج}{15}{}%
-\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{16}{}%
-\contentsline {chapter}{\rl {{مراجع}\hfill }}{17}{}%
+\contentsline {section}{\numberline {3.1}پیدایش \gls {binding} در گروه‌های چندزمانی}{14}{}%
+\contentsline {section}{\numberline {3.2}ستون‌های کورتکسی، واحد‌های مستقل محاسباتی}{16}{}%
+\contentsline {chapter}{\numberline {4}مدل پیشنهادی، آزمایش‌ها و نتایج}{18}{}%
+\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{19}{}%
+\contentsline {chapter}{\rl {{مراجع}\hfill }}{20}{}%
