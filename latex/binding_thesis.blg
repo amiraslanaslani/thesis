@@ -17,45 +17,45 @@ Too many commas in name 1 of "Eguchi, Akihiro;Isbister, James B.;Ahmad, Nasir;St
 while executing---line 1090 of file abbrv.bst
 Warning--empty journal in granger1969investigating
 Warning--can't use both author and editor fields in Purves2001-ns
-You've used 32 entries,
+You've used 36 entries,
             2118 wiz_defined-function locations,
-            723 strings with 8846 characters,
-and the built_in function-call counts, 9665 in all, are:
-= -- 947
-> -- 423
+            749 strings with 9426 characters,
+and the built_in function-call counts, 10968 in all, are:
+= -- 1075
+> -- 489
 < -- 4
-+ -- 177
-- -- 134
-* -- 673
-:= -- 1655
-add.period$ -- 99
-call.type$ -- 32
-change.case$ -- 154
++ -- 203
+- -- 156
+* -- 779
+:= -- 1882
+add.period$ -- 111
+call.type$ -- 36
+change.case$ -- 178
 chr.to.int$ -- 0
-cite$ -- 34
-duplicate$ -- 377
-empty$ -- 775
-format.name$ -- 134
-if$ -- 1998
+cite$ -- 38
+duplicate$ -- 418
+empty$ -- 871
+format.name$ -- 156
+if$ -- 2261
 int.to.chr$ -- 0
-int.to.str$ -- 32
-missing$ -- 38
-newline$ -- 162
-num.names$ -- 68
-pop$ -- 153
+int.to.str$ -- 36
+missing$ -- 41
+newline$ -- 182
+num.names$ -- 76
+pop$ -- 169
 preamble$ -- 1
-purify$ -- 128
+purify$ -- 147
 quote$ -- 0
-skip$ -- 256
+skip$ -- 282
 stack$ -- 0
-substring$ -- 555
-swap$ -- 54
+substring$ -- 642
+swap$ -- 57
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 114
+type$ -- 130
 warning$ -- 2
-while$ -- 97
-width$ -- 34
-write$ -- 351
+while$ -- 109
+width$ -- 38
+write$ -- 395
 (There were 5 error messages)

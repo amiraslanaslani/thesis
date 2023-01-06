@@ -61,6 +61,11 @@ K.~Greff, S.~Van~Steenkiste, and J.~Schmidhuber.
 \newblock On the binding problem in artificial neural networks.
 \newblock {\em arXiv preprint arXiv:2012.05208}, 2020.
 
+\bibitem{HTM2011}
+J.~Hawkins.
+\newblock hierarchical temporal memory (htm) whitepaper.
+\newblock Whitepaper, Numenta, Sept. 2011.
+
 \bibitem{Hawkins2021-rq}
 J.~Hawkins.
 \newblock {\em A Thousand Brains: A new theory of intelligence}.
@@ -115,6 +120,12 @@ P.~Mateos-Aparicio and A.~Rodr{\'{\i}}guez-Moreno.
 \newblock The impact of studying brain plasticity.
 \newblock {\em Frontiers in Cellular Neuroscience}, 13, Feb. 2019.
 
+\bibitem{MEGIAS2001527}
+M.~Megı́as, Z.~Emri, T.~Freund, and A.~Gulyás.
+\newblock Total number and distribution of inhibitory and excitatory synapses
+  on hippocampal ca1 pyramidal cells.
+\newblock {\em Neuroscience}, 102(3):527--540, 2001.
+
 \bibitem{Mountcastle1978}
 V.~B. Mountcastle.
 \newblock An organizing principle for cerebral function: The unit model and the
@@ -138,6 +149,16 @@ C.~Noback, D.~Ruggiero, N.~Strominger, and R.~Demarest.
 D.~P. Pelvig, H.~Pakkenberg, A.~K. Stark, and B.~Pakkenberg.
 \newblock Neocortical glial cell numbers in human brains.
 \newblock {\em Neurobiol. Aging}, 29(11):1754--1762, Nov. 2008.
+
+\bibitem{POIRAZI2003989}
+P.~Poirazi, T.~Brannon, and B.~W. Mel.
+\newblock Pyramidal neuron as two-layer neural network.
+\newblock {\em Neuron}, 37(6):989--999, 2003.
+
+\bibitem{Polsky2004}
+A.~Polsky, B.~W. Mel, and J.~Schiller.
+\newblock Computational subunits in thin dendrites of pyramidal cells.
+\newblock {\em Nature Neuroscience}, 7(6):621--627, May 2004.
 
 \bibitem{Purves2001-ns}
 D.~Purves.
