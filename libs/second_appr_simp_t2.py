@@ -1,19 +1,33 @@
 from abc import ABC
 import random
-from typing import Tuple, Type, Union, List
+from typing import NamedTuple, Tuple, List, Type, Union
 
 import torch
-from bindsnet.network.nodes import LIFNodes, Nodes
-from bindsnet.network.topology import Connection, AbstractConnection
+from bindsnet.network.nodes import Nodes
+from bindsnet.network.topology import AbstractConnection
 from bindsnet.network import Network
 from bindsnet.learning.learning import NoOp
 from bindsnet.network.monitors import Monitor
 
-from libs.connections import MaxPool1dConnection, BackwardConnections
+from libs.connections import MaxPool1dConnection, BackwardConnections, RandomConnection
+from libs.nodes import NoisyLIFNode
 
 
 LAYER_23 = 1
 LAYER_4 = 2
+
+
+# class Population(NamedTuple):
+#     name: str
+#     pop: Nodes
+
+
+# class Connection(NamedTuple):
+#     source: str
+#     targer: str
+#     connection: AbstractConnection
+PopulationType = Tuple[str, Nodes]
+ConnectionType = Tuple[str, str, AbstractConnection]
 
 
 def load(file_name):
@@ -25,12 +39,12 @@ class AbstractConnectable(ABC):
         super().__init__()
         self.is_disabled_ever = False
 
-        self.pops = []
-        self.inpops_feedforward = []
-        self.outpops_feedforward = []
-        self.inpops_backward = []
-        self.outpops_backward = []
-        self.connections = []
+        self.pops: List[PopulationType] = []
+        self.inpops_feedforward: List[PopulationType] = []
+        self.outpops_feedforward: List[PopulationType] = []
+        self.inpops_backward: List[PopulationType] = []
+        self.outpops_backward: List[PopulationType] = []
+        self.connections: List[ConnectionType] = []
         self.monitors: Tuple[str, Monitor] = []
         self.submodules: List[AbstractConnectable] = []
 
@@ -73,7 +87,7 @@ class AbstractConnectable(ABC):
         result = self.connections.copy()
         if recursively:
             for submodule in self.submodules:
-                result += submodule.get_connections()
+                result += submodule.get_connections(recursively=recursively)
         return result
 
     def get_populations(self, recursively=True):
@@ -165,19 +179,28 @@ class ComplexStructure(AbstractConnectable):
 class LayerModule(AbstractConnectable):
     def __init__(
         self, 
-        exc_size: int, 
-        node_type=LIFNodes, 
-        connection_type=Connection,
-        exc_args={}, 
-        inh_con_args={},
-        monitor: bool = False,
-        name=f"layer{random.randint(0,9999)}",
+        name: str = None,
     ):
         super().__init__()
-        self.name = name
+        self.name = name if name else f"layer{random.randint(0,9999)}"
 
-        exc1 = node_type(n=exc_size, **exc_args)
-        exc2 = node_type(n=exc_size, **exc_args)
+
+class MultiPopLayerModule(LayerModule):
+    def __init__(
+        self, 
+        pop_size: int, 
+        node_type: Nodes = NoisyLIFNode, 
+        connection_type: AbstractConnection = RandomConnection,
+        pop_args: dict = {}, 
+        inh_con_args: dict = {},
+        exc_con_args: dict = {}, # TODO: Use this parameter
+        monitor: bool = False,
+        name: str = None,
+    ):
+        # TODO: Add pops number to parameters
+        super().__init__(name=name)
+        exc1 = node_type(n=pop_size, **pop_args)
+        exc2 = node_type(n=pop_size, **pop_args)
 
         exc1_exc2_inh = connection_type(
             source=exc1, target=exc2 , **inh_con_args
@@ -202,14 +225,53 @@ class LayerModule(AbstractConnectable):
         if monitor:
             for pop in self.pops:
                 self.monitors.append((pop[0], Monitor(obj=pop[1], state_vars=['s'])))
+
+
+class SinglePopLayerModule(LayerModule):
+    def __init__(
+        self, 
+        pop_size: int, 
+        node_type: Nodes = NoisyLIFNode, 
+        connection_type: AbstractConnection = RandomConnection,
+        pop_args: dict = {}, 
+        inh_con_args: dict = {},
+        exc_con_args: dict = {}, # TODO: Use this parameter
+        monitor: bool = False,
+        name: str = None,
+    ):
+        super().__init__(name=name)
+        pop = node_type(n=pop_size, **pop_args)
+
+        pop_sign = (f"{self.name}_pop", pop)
+        self.pops = [pop_sign]
+        self.inpops_feedforward = [pop_sign]
+        self.outpops_feedforward = [pop_sign]
+        self.inpops_backward = [pop_sign]
+        self.outpops_backward = [pop_sign]
+
+        if inh_con_args:
+            pop_inh_con = connection_type(
+                source=pop, target=pop , **inh_con_args
+            )
+            self.connections.append((pop_sign[0], pop_sign[0], pop_inh_con))
+
+        if exc_con_args:
+            pop_exc_con = connection_type(
+                source=pop, target=pop , **exc_con_args
+            )
+            self.connections.append((pop_sign[0], pop_sign[0], pop_exc_con))
+
+        if monitor:
+            for pop in self.pops:
+                self.monitors.append((pop[0], Monitor(obj=pop[1], state_vars=['s'])))
             
 
 class LayerConnection(AbstractConnectable):
     def __init__(
         self,
-        source: Union[AbstractConnectable, Tuple[str, Nodes]],
-        target: Union[AbstractConnectable, Tuple[str, Nodes]],
-        connection_type=Connection,
+        source: Union[AbstractConnectable, PopulationType],
+        target: Union[AbstractConnectable, PopulationType],
+        connection_type=RandomConnection,
         connection_args={}
     ):
         super().__init__()
@@ -245,11 +307,14 @@ class CorticalColumn(ComplexStructure):
     ):
         super().__init__()
         monitor = "{0:0>8b}".format(monitor)[::-1]
-        self.l23 = LayerModule(**layer_args_23, name=f"{name}_l23_", monitor=monitor[0]=='1')
-        self.l4 = LayerModule(**layer_args_l4, name=f"{name}_l4_", monitor=monitor[1]=='1')
-        con1 = MaxPool1dConnection(self.l4.pops[0][1], self.l23.pops[0][1], **connection_args)
-        con2 = MaxPool1dConnection(self.l4.pops[1][1], self.l23.pops[1][1], **connection_args)
+        self.l23 = SinglePopLayerModule(**layer_args_23, name=f"{name}_l23_", monitor=monitor[0]=='1')
+        self.l4 = SinglePopLayerModule(**layer_args_l4, name=f"{name}_l4_", monitor=monitor[1]=='1')
+        self.pooling_con = LayerConnection(self.l4, self.l23, connection_type=MaxPool1dConnection, connection_args=connection_args)
+        # con1 = MaxPool1dConnection(self.l4.pops[0][1], self.l23.pops[0][1], **connection_args)
+        # con2 = MaxPool1dConnection(self.l4.pops[1][1], self.l23.pops[1][1], **connection_args)
 
+        self.backward_exc_connection = None
+        self.backward_inh_connection = None
         if backward:
             if backward_exc_args:
                 self.backward_exc_connection = LayerConnection(
@@ -268,9 +333,10 @@ class CorticalColumn(ComplexStructure):
                 )
                 self.add_submodule(self.backward_inh_connection)
 
-        self.add_connection(self.l4.pops[0][0], self.l23.pops[0][0], con1)
-        self.add_connection(self.l4.pops[1][0], self.l23.pops[1][0], con2)
+        # self.add_connection(self.l4.pops[0][0], self.l23.pops[0][0], con1)
+        # self.add_connection(self.l4.pops[1][0], self.l23.pops[1][0], con2)
 
+        self.add_submodule(self.pooling_con)
         self.add_submodule(self.l23)
         self.add_submodule(self.l4)
 
@@ -280,3 +346,27 @@ class CorticalColumn(ComplexStructure):
         self.add_inpops_backward(self.l23.get_backward_input_pops())
         self.add_outpops_backward(self.l23.get_backward_output_pops())
         
+
+class LateralInhibition(ComplexStructure):
+    def __init__(
+        self,
+        ccs: List[CorticalColumn],
+        connection_args: dict,
+        connection_type: Type[AbstractConnection] = RandomConnection,
+        layer: int = LAYER_23,  # LAYER_23 | LAYER_4
+    ) -> None:
+        super().__init__()
+        self.ccs = ccs
+        layers = "{0:0>8b}".format(layer)[::-1]
+        connections = []
+        for cc_source in self.ccs:
+            for cc_destination in self.ccs:
+                if cc_source == cc_destination:
+                    continue
+                if layers[0] == '1':
+                    connections.append(LayerConnection(cc_source.l23, cc_destination.l23, connection_type, connection_args))
+                if layers[1] == '1':
+                    connections.append(LayerConnection(cc_source.l4, cc_destination.l4, connection_type, connection_args))
+
+        for con in connections:
+            self.add_submodule(con)

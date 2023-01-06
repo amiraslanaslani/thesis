@@ -30,8 +30,19 @@ class RandomConnection(ConnectionWithConvergence):
         weight_decay: float = 0.0, 
         probability: float = 1.0,
         second_mask: Optional[torch.Tensor] = None,
+        normal_distr: float = 0.0, # true if greater than zero and the value is using to specify std.
         **kwargs
     ) -> None:
+        if normal_distr > 0:
+            std = normal_distr
+            wmin = kwargs.get("wmin", None)
+            wmax = kwargs.get("wmax", None)
+            if wmin is None or wmax is None:
+                mean = 0
+            else:
+                mean = (wmin + wmax) / 2
+            kwargs["w"] = torch.normal(mean, std, size=(source.n, target.n))
+            
         super().__init__(source, target, nu=nu, reduction=reduction, weight_decay=weight_decay, **kwargs)
         random_mask = (torch.rand(source.n, target.n) > probability) 
         if second_mask is not None:

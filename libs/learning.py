@@ -2,15 +2,21 @@ from abc import ABC
 from typing import Union, Optional, Sequence
 
 import torch
-from bindsnet.learning import PostPre, LearningRule, MSTDPET, MSTDP
+from bindsnet.learning import LearningRule, MSTDPET, MSTDP
 from bindsnet.network.topology import (
-    AbstractConnection,
-    Connection,
-    Conv2dConnection,
-    LocalConnection,
+    AbstractConnection
 )
 
-class PostPreInh(LearningRule):
+
+class SoftlyBoundable():
+    def alpha(self, soft=False):
+        if soft:
+            learning_rule: LearningRule = self
+            return (learning_rule.connection.wmax - learning_rule.connection.w) * (learning_rule.connection.w - learning_rule.connection.wmin)
+        return 1
+
+
+class PostPreInh(LearningRule, SoftlyBoundable):
 
     def __init__(
         self, 
@@ -20,6 +26,7 @@ class PostPreInh(LearningRule):
         weight_decay: float = 0, 
         windows_size: int = 30,
         windows_std: float = 4,
+        soft_bound: bool = False,
         **kwargs
     ) -> None:
 
@@ -30,6 +37,7 @@ class PostPreInh(LearningRule):
             weight_decay, 
             **kwargs
         )
+        self.soft_bound = soft_bound
         self.is_cuda = False
         self.windows_size = windows_size
 
@@ -80,13 +88,24 @@ class PostPreInh(LearningRule):
         return changes
 
     def update(self, **kwargs) -> None:
-        changes = self.get_changes()
+        changes = self.alpha(self.soft_bound) * self.get_changes()
         self.connection.w += changes
         self.connection.changes = changes.sum()
         super().update()
 
 
-class PostPreWMatrix(LearningRule):
+class PostPreWMatrix(LearningRule, SoftlyBoundable):
+    def __init__(
+        self, 
+        connection: AbstractConnection, 
+        nu: Optional[Union[float, Sequence[float]]] = None, 
+        reduction: Optional[callable] = None, 
+        weight_decay: float = 0, 
+        soft_bound: bool = False,
+        **kwargs
+    ) -> None:
+        super().__init__(connection, nu, reduction, weight_decay, **kwargs)
+        self.soft_bound = soft_bound
     """
     Simple STDP rule involving both pre- and post-synaptic spiking activity. By default,
     pre-synaptic update is negative and the post-synaptic update is positive.
@@ -99,101 +118,20 @@ class PostPreWMatrix(LearningRule):
         target_s = self.target.s.view(batch_size, -1).unsqueeze(1).float()
         target_x = self.target.x.view(batch_size, -1).unsqueeze(1)
 
+        changes = torch.zeros_like(self.connection.w)
         # Pre-synaptic update.
         if self.nu[0]:
             update = self.reduction(torch.bmm(source_s, target_x), dim=0)
-            self.connection.w -= self.nu[0] * update
+            changes -= self.nu[0] * update
 
         # Post-synaptic update.
         if self.nu[1]:
             update = self.reduction(torch.bmm(source_x, target_s), dim=0)
-            self.connection.w += self.nu[1] * update
+            changes += self.nu[1] * update
 
+        self.connection.w += self.alpha(self.soft_bound) * self.changes
         super().update()
 
-
-# class PostPreInh(PostPre):
-#     # language=rst
-#     """
-#     Simple STDP rule involving both pre- and post-synaptic spiking activity. By default,
-#     pre-synaptic update is negative and the post-synaptic update is positive.
-#     """
-
-#     def __init__(
-#         self,
-#         connection: AbstractConnection,
-#         nu: Optional[Union[float, Sequence[float]]] = None,
-#         reduction: Optional[callable] = None,
-#         weight_decay: float = 0.0,
-#         **kwargs
-#     ) -> None:
-#         # language=rst
-#         """
-#         Constructor for ``PostPre`` learning rule.
-
-#         :param connection: An ``AbstractConnection`` object whose weights the
-#             ``PostPre`` learning rule will modify.
-#         :param nu: Single or pair of learning rates for pre- and post-synaptic events.
-#         :param reduction: Method for reducing parameter updates along the batch
-#             dimension.
-#         :param weight_decay: Constant multiple to decay weights by on each iteration.
-#         """
-#         super().__init__(
-#             connection=connection,
-#             nu=nu,
-#             reduction=reduction,
-#             weight_decay=weight_decay,
-#             **kwargs
-#         )
-
-#         assert (
-#             self.source.traces and self.target.traces
-#         ), "Both pre- and post-synaptic nodes must record spike traces."
-
-#         if isinstance(connection, (RandomConnectionWithInhibitory)):
-#             self.update = self._connection_update
-#         else:
-#             raise NotImplementedError(
-#                 "This learning rule is not supported for this Connection type."
-#             )
-
-#     def _connection_update(self, **kwargs) -> None:
-#         # language=rst
-#         """
-#         Post-pre learning rule for ``Connection`` subclass of ``AbstractConnection``
-#         class.
-#         """
-#         batch_size = self.source.batch_size
-
-#         source_s = self.source.s.view(batch_size, -1).unsqueeze(2).float()
-#         source_x = self.source.x.view(batch_size, -1).unsqueeze(2)
-#         target_s = self.target.s.view(batch_size, -1).unsqueeze(1).float()
-#         target_x = self.target.x.view(batch_size, -1).unsqueeze(1)
-
-#         total_update = torch.zeros(
-#             self.connection.source.n,
-#             self.connection.target.n,
-#             device=self.source.s.device
-#         )
-#         # Pre-synaptic update.
-#         if self.nu[0]:
-#             update = self.reduction(torch.bmm(source_s, target_x), dim=0)
-#             total_update -= self.nu[0] * update
-
-#         # Post-synaptic update.
-#         if self.nu[1]:
-#             update = self.reduction(torch.bmm(source_x, target_s), dim=0)
-#             total_update += self.nu[1] * update
-
-#         total_update[self.connection.inhibitory_n:,:] *= -1
-#         self.connection.w += total_update
-        
-#         super().update()
-
-#     def _conv2d_connection_update(self, **kwargs) -> None:
-#         raise NotImplementedError(
-#             "This learning rule is not supported for this Connection type."
-#         )
 
 class AbstractSeasonalLearning(ABC):
     def trigger(self, reward: float):
@@ -202,7 +140,7 @@ class AbstractSeasonalLearning(ABC):
         self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
         return tmp
 
-class RSTDP_INH_SEASONAL(PostPreInh, AbstractSeasonalLearning):
+class RSTDP_INH_SEASONAL(PostPreInh, AbstractSeasonalLearning, SoftlyBoundable):
     def __init__(
         self, 
         connection: AbstractConnection, 
@@ -211,6 +149,7 @@ class RSTDP_INH_SEASONAL(PostPreInh, AbstractSeasonalLearning):
         weight_decay: float = 0, 
         windows_size: int = 30, 
         windows_std: float = 4, 
+        soft_bound: bool = False,
         **kwargs
     ) -> None:
         super().__init__(
@@ -223,20 +162,22 @@ class RSTDP_INH_SEASONAL(PostPreInh, AbstractSeasonalLearning):
             **kwargs
         )
         self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
+        self.soft_bound = soft_bound
 
     def _connection_update(self, **kwargs) -> None:
-        changes = self.get_changes()
+        changes = self.alpha(self.soft_bound) * self.get_changes()
         self.season_sum += changes
         super().update()
 
 
-class RSTDP_SEASONAL(PostPreWMatrix, AbstractSeasonalLearning):
+class RSTDP_SEASONAL(PostPreWMatrix, AbstractSeasonalLearning, SoftlyBoundable):
     def __init__(
         self,
         connection: AbstractConnection,
         nu: Optional[Union[float, Sequence[float]]] = None,
         reduction: Optional[callable] = None,
         weight_decay: float = 0.0,
+        soft_bound: bool = False,
         **kwargs
     ) -> None:
         super().__init__(
@@ -247,6 +188,7 @@ class RSTDP_SEASONAL(PostPreWMatrix, AbstractSeasonalLearning):
             **kwargs
         )
         self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
+        self.soft_bound = soft_bound
 
     def _connection_update(self, **kwargs) -> None:
         # language=rst
@@ -261,19 +203,21 @@ class RSTDP_SEASONAL(PostPreWMatrix, AbstractSeasonalLearning):
         target_s = self.target.s.view(batch_size, -1).unsqueeze(1).float()
         target_x = self.target.x.view(batch_size, -1).unsqueeze(1)
 
+        changes = torch.zeros_like(self.season_sum)
         # Pre-synaptic update.
         if self.nu[0]:
             update = self.reduction(torch.bmm(source_s, target_x), dim=0)
-            self.season_sum -= self.nu[0] * update
+            changes -= self.nu[0] * update
 
         # Post-synaptic update.
         if self.nu[1]:
             update = self.reduction(torch.bmm(source_x, target_s), dim=0)
-            self.season_sum += self.nu[1] * update
+            changes += self.nu[1] * update
 
+        self.season_sum += self.alpha(self.soft_bound) * changes
         super().update()
 
-class MSTDP_SEASONAL(MSTDP, AbstractSeasonalLearning):
+class MSTDP_SEASONAL(MSTDP, AbstractSeasonalLearning, SoftlyBoundable):
 
     def __init__(
         self,
@@ -281,6 +225,7 @@ class MSTDP_SEASONAL(MSTDP, AbstractSeasonalLearning):
         nu: Optional[Union[float, Sequence[float]]] = None,
         reduction: Optional[callable] = None,
         weight_decay: float = 0.0,
+        soft_bound: bool = False,
         **kwargs
     ) -> None:
         super().__init__(
@@ -291,6 +236,7 @@ class MSTDP_SEASONAL(MSTDP, AbstractSeasonalLearning):
             **kwargs
         )
         self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
+        self.soft_bound = soft_bound
 
     def _connection_update(self, **kwargs) -> None:
         batch_size = self.source.batch_size
@@ -312,7 +258,7 @@ class MSTDP_SEASONAL(MSTDP, AbstractSeasonalLearning):
         a_minus = torch.tensor(kwargs.get("a_minus", -1.0))
 
         # Compute weight update based on the eligibility value of the past timestep.
-        self.season_sum += self.nu[0] * self.reduction(self.eligibility, dim=0)
+        self.season_sum += self.alpha(self.soft_bound) * self.nu[0] * self.reduction(self.eligibility, dim=0)
 
         # Update P^+ and P^- values.
         self.p_plus *= torch.exp(-self.connection.dt / self.tc_plus)
@@ -328,7 +274,7 @@ class MSTDP_SEASONAL(MSTDP, AbstractSeasonalLearning):
         super().update()
         
 
-class MSTDPET_SEASONAL(MSTDPET, AbstractSeasonalLearning):
+class MSTDPET_SEASONAL(MSTDPET, AbstractSeasonalLearning, SoftlyBoundable):
 
     def __init__(
         self,
@@ -336,6 +282,7 @@ class MSTDPET_SEASONAL(MSTDPET, AbstractSeasonalLearning):
         nu: Optional[Union[float, Sequence[float]]] = None,
         reduction: Optional[callable] = None,
         weight_decay: float = 0.0,
+        soft_bound: bool = False,
         **kwargs
     ) -> None:
         super().__init__(
@@ -346,6 +293,7 @@ class MSTDPET_SEASONAL(MSTDPET, AbstractSeasonalLearning):
             **kwargs
         )
         self.season_sum = torch.zeros(self.connection.source.n, self.connection.target.n)
+        self.soft_bound = soft_bound
 
     def _connection_update(self, **kwargs) -> None:
         # Initialize eligibility, eligibility trace, P^+, and P^-.
@@ -373,7 +321,7 @@ class MSTDPET_SEASONAL(MSTDPET, AbstractSeasonalLearning):
 
         # Compute weight update.
         self.season_sum += (
-            self.nu[0] * self.connection.dt * self.eligibility_trace
+            self.alpha(self.soft_bound) * self.nu[0] * self.connection.dt * self.eligibility_trace
         )
 
         # Update P^+ and P^- values.
