@@ -6,27 +6,27 @@
 \contentsline {subsection}{\numberline {1.1.4}\gls {neocortex} و \gls {cc}}{7}{}%
 \contentsline {subsection}{\numberline {1.1.5}نورون‌های هرمی}{8}{}%
 \contentsline {section}{\numberline {1.2}مسئله‌ی \gls {binding}}{9}{}%
-\contentsline {subsection}{\numberline {1.2.1}صورت مسئله‌ی \gls {binding}}{9}{}%
+\contentsline {subsection}{\numberline {1.2.1}صورت مسئله‌ی \gls {binding}}{10}{}%
 \contentsline {subsection}{\numberline {1.2.2}شواهد رخ‌دادن \gls {binding} در انسان}{10}{}%
-\contentsline {section}{\numberline {1.3}\gls {snn}}{10}{}%
+\contentsline {section}{\numberline {1.3}\gls {snn}}{11}{}%
 \contentsline {subsection}{\numberline {1.3.1}مدل نورونی \gls {lif}}{11}{}%
-\contentsline {chapter}{\numberline {2}طرح مسئله}{12}{}%
-\contentsline {section}{\numberline {2.1}مشکلات موجود حاضر}{12}{}%
-\contentsline {section}{\numberline {2.2}عملکرد شبکه‌های عصبی ضربه‌ای در مسائل مطرح شده}{13}{}%
-\contentsline {section}{\numberline {2.3}تعریف مسئله}{13}{}%
-\contentsline {chapter}{\numberline {3}تحقیقات پیشین}{15}{}%
-\contentsline {section}{\numberline {3.1}پیدایش \gls {binding} در گروه‌های چندزمانی}{15}{}%
-\contentsline {section}{\numberline {3.2}ستون‌های کورتکسی، واحد‌های مستقل محاسباتی}{17}{}%
-\contentsline {chapter}{\numberline {4}مدل پیشنهادی، آزمایش‌ها و نتایج}{19}{}%
-\contentsline {section}{\numberline {4.1}مدل پیشنهادی}{19}{}%
-\contentsline {subsection}{\numberline {4.1.1}الگوی فعالیت جمعیت‌های ورودی}{20}{}%
-\contentsline {subsection}{\numberline {4.1.2}مدل‌سازی ستون‌های کورتکسی}{22}{}%
-\contentsline {subsection}{\numberline {4.1.3}ارتباط پیش‌خور بین ستون‌های کورتکسی}{23}{}%
-\contentsline {subsection}{\numberline {4.1.4}اتصالات رو‌ به عقب بین ستون‌های کورتکسی}{23}{}%
-\contentsline {subsection}{\numberline {4.1.5}ابزار‌های پیاده‌سازی}{26}{}%
-\contentsline {section}{\numberline {4.2}آموزش}{26}{}%
-\contentsline {subsection}{\numberline {4.2.1}آموزش مدل}{26}{}%
-\contentsline {subsection}{\numberline {4.2.2}پارامتر‌های مورد استفاده در آزمایش}{26}{}%
-\contentsline {section}{\numberline {4.3}نتیجه}{26}{}%
-\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{27}{}%
-\contentsline {chapter}{\rl {{مراجع}\hfill }}{28}{}%
+\contentsline {chapter}{\numberline {2}طرح مسئله}{13}{}%
+\contentsline {section}{\numberline {2.1}مشکلات موجود حاضر}{13}{}%
+\contentsline {section}{\numberline {2.2}عملکرد شبکه‌های عصبی ضربه‌ای در مسائل مطرح شده}{14}{}%
+\contentsline {section}{\numberline {2.3}تعریف مسئله}{14}{}%
+\contentsline {chapter}{\numberline {3}تحقیقات پیشین}{16}{}%
+\contentsline {section}{\numberline {3.1}پیدایش \gls {binding} در گروه‌های چندزمانی}{16}{}%
+\contentsline {section}{\numberline {3.2}ستون‌های کورتکسی، واحد‌های مستقل محاسباتی}{18}{}%
+\contentsline {chapter}{\numberline {4}مدل پیشنهادی، آزمایش‌ها و نتایج}{20}{}%
+\contentsline {section}{\numberline {4.1}مدل پیشنهادی}{20}{}%
+\contentsline {subsection}{\numberline {4.1.1}الگوی فعالیت جمعیت‌های ورودی}{21}{}%
+\contentsline {subsection}{\numberline {4.1.2}مدل‌سازی ستون‌های کورتکسی}{23}{}%
+\contentsline {subsection}{\numberline {4.1.3}ارتباط پیش‌خور بین ستون‌های کورتکسی و جمعیت‌های ورودی}{24}{}%
+\contentsline {subsection}{\numberline {4.1.4}اتصالات رو‌ به عقب بین ستون‌های کورتکسی}{24}{}%
+\contentsline {subsection}{\numberline {4.1.5}وزن‌های اولیه و انعطاف پذیری نورونی}{26}{}%
+\contentsline {subsection}{\numberline {4.1.6}ابزار‌های پیاده‌سازی}{28}{}%
+\contentsline {subsection}{\numberline {4.1.7}پارامتر‌های مورد استفاده در آزمایش}{28}{}%
+\contentsline {section}{\numberline {4.2}آموزش}{29}{}%
+\contentsline {section}{\numberline {4.3}نتیجه}{29}{}%
+\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{33}{}%
+\contentsline {chapter}{\rl {{مراجع}\hfill }}{34}{}%

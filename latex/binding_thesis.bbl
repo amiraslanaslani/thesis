@@ -61,6 +61,12 @@ K.~Greff, S.~Van~Steenkiste, and J.~Schmidhuber.
 \newblock On the binding problem in artificial neural networks.
 \newblock {\em arXiv preprint arXiv:2012.05208}, 2020.
 
+\bibitem{Haas2006}
+J.~S. Haas, T.~Nowotny, and H.~Abarbanel.
+\newblock Spike-timing-dependent plasticity of inhibitory synapses in the
+  entorhinal cortex.
+\newblock {\em Journal of Neurophysiology}, 96(6):3305--3313, Dec. 2006.
+
 \bibitem{HTM2011}
 J.~Hawkins.
 \newblock hierarchical temporal memory (htm) whitepaper.
