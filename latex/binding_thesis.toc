@@ -10,6 +10,7 @@
 \contentsline {subsection}{\numberline {1.2.2}شواهد رخ‌دادن \gls {binding} در انسان}{10}{}%
 \contentsline {section}{\numberline {1.3}\gls {snn}}{11}{}%
 \contentsline {subsection}{\numberline {1.3.1}مدل نورونی \gls {lif}}{11}{}%
+\contentsline {subsection}{\numberline {1.3.2}یادگیری تقویتی در شبکه‌های عصبی ضربه‌ای}{12}{}%
 \contentsline {chapter}{\numberline {2}طرح مسئله}{13}{}%
 \contentsline {section}{\numberline {2.1}مشکلات موجود حاضر}{13}{}%
 \contentsline {section}{\numberline {2.2}عملکرد شبکه‌های عصبی ضربه‌ای در مسائل مطرح شده}{14}{}%
@@ -21,12 +22,19 @@
 \contentsline {section}{\numberline {4.1}مدل پیشنهادی}{20}{}%
 \contentsline {subsection}{\numberline {4.1.1}الگوی فعالیت جمعیت‌های ورودی}{21}{}%
 \contentsline {subsection}{\numberline {4.1.2}مدل‌سازی ستون‌های کورتکسی}{23}{}%
-\contentsline {subsection}{\numberline {4.1.3}ارتباط پیش‌خور بین ستون‌های کورتکسی و جمعیت‌های ورودی}{24}{}%
-\contentsline {subsection}{\numberline {4.1.4}اتصالات رو‌ به عقب بین ستون‌های کورتکسی}{24}{}%
-\contentsline {subsection}{\numberline {4.1.5}وزن‌های اولیه و انعطاف پذیری نورونی}{26}{}%
+\contentsline {subsection}{\numberline {4.1.3}اتصالات پیش‌خور بین ستون‌های کورتکسی و جمعیت‌های ورودی}{24}{}%
+\contentsline {subsection}{\numberline {4.1.4}اتصالات رو‌ به عقب بین ستون‌های کورتکسی}{26}{}%
+\contentsline {subsection}{\numberline {4.1.5}وزن‌های اولیه و انعطاف پذیری نورونی}{27}{}%
 \contentsline {subsection}{\numberline {4.1.6}ابزار‌های پیاده‌سازی}{28}{}%
-\contentsline {subsection}{\numberline {4.1.7}پارامتر‌های مورد استفاده در آزمایش}{28}{}%
+\contentsline {subsection}{\numberline {4.1.7}پارامتر‌های مورد استفاده در آزمایش}{29}{}%
 \contentsline {section}{\numberline {4.2}آموزش}{29}{}%
-\contentsline {section}{\numberline {4.3}نتیجه}{29}{}%
-\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{33}{}%
-\contentsline {chapter}{\rl {{مراجع}\hfill }}{34}{}%
+\contentsline {section}{\numberline {4.3}نتایج}{33}{}%
+\contentsline {subsection}{\numberline {4.3.1}نتایج آموزش ستون‌های کورتکسی اول و دوم}{33}{}%
+\contentsline {subsection}{\numberline {4.3.2}نتایج آموزش ستون کورتکسی سوم}{33}{}%
+\contentsline {subsection}{\numberline {4.3.3}میزان پیشرفت یادگیری}{34}{}%
+\contentsline {subsection}{\numberline {4.3.4}بررسی وجود انقیاد در مدل}{34}{}%
+\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{35}{}%
+\contentsline {section}{\numberline {5.1}مقایسه‌ی مدل ارائه شده با مدل‌های پیشین}{35}{}%
+\contentsline {section}{\numberline {5.2}نتیجه‌گیری}{35}{}%
+\contentsline {section}{\numberline {5.3}فعالیت‌های آینده}{36}{}%
+\contentsline {chapter}{\rl {{مراجع}\hfill }}{37}{}%
