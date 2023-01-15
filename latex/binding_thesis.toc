@@ -30,11 +30,11 @@
 \contentsline {section}{\numberline {4.2}آموزش}{29}{}%
 \contentsline {section}{\numberline {4.3}نتایج}{33}{}%
 \contentsline {subsection}{\numberline {4.3.1}نتایج آموزش ستون‌های کورتکسی اول و دوم}{33}{}%
-\contentsline {subsection}{\numberline {4.3.2}نتایج آموزش ستون کورتکسی سوم}{33}{}%
-\contentsline {subsection}{\numberline {4.3.3}میزان پیشرفت یادگیری}{34}{}%
-\contentsline {subsection}{\numberline {4.3.4}بررسی وجود انقیاد در مدل}{34}{}%
-\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{35}{}%
-\contentsline {section}{\numberline {5.1}مقایسه‌ی مدل ارائه شده با مدل‌های پیشین}{35}{}%
-\contentsline {section}{\numberline {5.2}نتیجه‌گیری}{35}{}%
-\contentsline {section}{\numberline {5.3}فعالیت‌های آینده}{36}{}%
-\contentsline {chapter}{\rl {{مراجع}\hfill }}{37}{}%
+\contentsline {subsection}{\numberline {4.3.2}نتایج آموزش ستون کورتکسی سوم}{34}{}%
+\contentsline {subsection}{\numberline {4.3.3}میزان پیشرفت یادگیری}{35}{}%
+\contentsline {subsection}{\numberline {4.3.4}بررسی وجود انقیاد در مدل}{36}{}%
+\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{40}{}%
+\contentsline {section}{\numberline {5.1}مقایسه‌ی مدل ارائه شده با مدل‌های پیشین}{40}{}%
+\contentsline {section}{\numberline {5.2}نتیجه‌گیری}{40}{}%
+\contentsline {section}{\numberline {5.3}فعالیت‌های آینده}{41}{}%
+\contentsline {chapter}{\rl {{مراجع}\hfill }}{42}{}%
