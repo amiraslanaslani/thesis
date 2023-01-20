@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{Alexandre1991}
+F.~Alexandre, F.~Guyot, J.-P. Haton, and Y.~Burnod.
+\newblock The cortical column: A new processing unit for multilayered networks.
+\newblock {\em Neural Networks}, 4(1):15--25, Jan. 1991.
+
 \bibitem{caporale2008spike}
 N.~Caporale, Y.~Dan, et~al.
 \newblock Spike timing-dependent plasticity: a hebbian learning rule.
@@ -192,6 +197,11 @@ C.~J. Shatz.
 R.~Sutton, A.~Barto, and C.~Barto.
 \newblock {\em Reinforcement Learning: An Introduction}.
 \newblock A Bradford book. MIT Press, 1998.
+
+\bibitem{Treisman1999}
+A.~Treisman.
+\newblock Solutions to the binding problem.
+\newblock {\em Neuron}, 24(1):105--125, Sept. 1999.
 
 \bibitem{TREISMAN1982107}
 A.~Treisman and H.~Schmidt.
