@@ -24,31 +24,31 @@
 \glossaryentry{غلاف میلین?\glossentry{myelin}|setentrycounter[]{page}"\glsnumberformat}{2}
 \glossaryentry{ضربه?\glossentry{spike}|setentrycounter[]{page}"\glsnumberformat}{3}
 \glossaryentry{ضربه?\glossentry{spike}|setentrycounter[]{page}"\glsnumberformat}{3}
-\glossaryentry{انتقال دهنده های عصبی?\glossentry{neurotransmitters}|setentrycounter[]{page}"\glsnumberformat}{3}
+\glossaryentry{انتقال‌دهنده‌های عصبی?\glossentry{neurotransmitters}|setentrycounter[]{page}"\glsnumberformat}{3}
 \glossaryentry{نورون پیش‌سیناپسی?\glossentry{pre}|setentrycounter[]{page}"\glsnumberformat}{3}
 \glossaryentry{نورون پس‌سیناپسی?\glossentry{post}|setentrycounter[]{page}"\glsnumberformat}{3}
 \glossaryentry{نورون پس‌سیناپسی?\glossentry{post}|setentrycounter[]{page}"\glsnumberformat}{3}
 \glossaryentry{نورون پس‌سیناپسی?\glossentry{post}|setentrycounter[]{page}"\glsnumberformat}{4}
-\glossaryentry{انعطاف پذیری نورونی?\glossentry{Neuroplasticity}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{انعطاف‌پذیری نورونی?\glossentry{Neuroplasticity}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{نورون پس‌سیناپسی?\glossentry{post}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{نورون پیش‌سیناپسی?\glossentry{pre}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{قانون یادگیری هب?\glossentry{hebb}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{قانون یادگیری هب?\glossentry{hebb}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{نورون تحریکی?\glossentry{exc}|setentrycounter[]{page}"\glsnumberformat}{4}
-\glossaryentry{انعطاف پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{انعطاف‌پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{نورون پیش‌سیناپسی?\glossentry{pre}|setentrycounter[]{page}"\glsnumberformat}{4}
 \glossaryentry{نورون پس‌سیناپسی?\glossentry{post}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{نورون پیش‌سیناپسی?\glossentry{pre}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{نورون پس‌سیناپسی?\glossentry{post}|setentrycounter[]{page}"\glsnumberformat}{4}
+\glossaryentry{انعطاف‌پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{5}
 \glossaryentry{نورون پیش‌سیناپسی?\glossentry{pre}|setentrycounter[]{page}"\glsnumberformat}{5}
 \glossaryentry{نورون پس‌سیناپسی?\glossentry{post}|setentrycounter[]{page}"\glsnumberformat}{5}
-\glossaryentry{انعطاف پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{5}
-\glossaryentry{نورون پس‌سیناپسی?\glossentry{post}|setentrycounter[]{page}"\glsnumberformat}{5}
-\glossaryentry{نورون پیش‌سیناپسی?\glossentry{pre}|setentrycounter[]{page}"\glsnumberformat}{5}
-\glossaryentry{انعطاف پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{6}
+\glossaryentry{انعطاف‌پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{6}
 \glossaryentry{سیناپس?\glossentry{synapse}|setentrycounter[]{page}"\glsnumberformat}{6}
 \glossaryentry{دوپامین?\glossentry{dopamine}|setentrycounter[]{page}"\glsnumberformat}{6}
 \glossaryentry{عامل?\glossentry{agent}|setentrycounter[]{page}"\glsnumberformat}{7}
-\glossaryentry{انعطاف پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{7}
-\glossaryentry{انعطاف پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{7}
+\glossaryentry{انعطاف‌پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{7}
+\glossaryentry{انعطاف‌پذیری وابسته به زمان ضربه?\glossentry{stdp}|setentrycounter[]{page}"\glsnumberformat}{7}
 \glossaryentry{ستون‌ کورتکسی?\glossentry{cc}|setentrycounter[]{page}"\glsnumberformat}{7}
 \glossaryentry{نئوکورتکس?\glossentry{neocortex}|setentrycounter[]{page}"\glsnumberformat}{7}
 \glossaryentry{نئوکورتکس?\glossentry{neocortex}|setentrycounter[]{page}"\glsnumberformat}{7}
@@ -86,7 +86,7 @@
 \glossaryentry{پتانسیل استراحت?\glossentry{rest}|setentrycounter[]{page}"\glsnumberformat}{12}
 \glossaryentry{یادگیری تقویتی?\glossentry{rl}|setentrycounter[]{page}"\glsnumberformat}{12}
 \glossaryentry{شبکه‌های عصبی ضربه‌ای?\glossentry{snn}|setentrycounter[]{page}"\glsnumberformat}{12}
-\glossaryentry{انعطاف پذیری وابسته به زمان ضربه‌ی پاداش-محور?\glossentry{rstdp}|setentrycounter[]{page}"\glsnumberformat}{12}
+\glossaryentry{انعطاف‌پذیری وابسته به زمان ضربه‌ی پاداش-محور?\glossentry{rstdp}|setentrycounter[]{page}"\glsnumberformat}{12}
 \glossaryentry{انقیاد?\glossentry{binding}|setentrycounter[]{page}"\glsnumberformat}{13}
 \glossaryentry{انقیاد?\glossentry{binding}|setentrycounter[]{page}"\glsnumberformat}{13}
 \glossaryentry{انقیاد?\glossentry{binding}|setentrycounter[]{page}"\glsnumberformat}{13}
@@ -122,3 +122,4 @@
 \glossaryentry{شبکه‌های عصبی ضربه‌ای?\glossentry{snn}|setentrycounter[]{page}"\glsnumberformat}{24}
 \glossaryentry{شبکه‌های عصبی ضربه‌ای?\glossentry{snn}|setentrycounter[]{page}"\glsnumberformat}{24}
 \glossaryentry{نورون مهاری?\glossentry{inh}|setentrycounter[]{page}"\glsnumberformat}{27}
+\glossaryentry{نورون پس‌سیناپسی?\glossentry{post}|setentrycounter[]{page}"\glsnumberformat}{28}
