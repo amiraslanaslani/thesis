@@ -3,7 +3,10 @@
 %####################################################################
 \documentclass[12pt]{report}
 
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+
 %Packages-------------------------------------
+\usepackage{parskip}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -21,7 +24,6 @@
 \usepackage{caption}
 \usepackage{float}
 \usepackage{setspace}
-\usepackage{parskip}
 
 %\usepackage{xtocnic}
 
@@ -30,6 +32,7 @@
 \settextfont[Scale=1]{XB Zar}
 %\setdigitfont[Scale=1]{XB Zar}
 \setlatintextfont[Scale=1]{Times New Roman}
+\restoreparindent
 
 %Layout---------------------------------------
 
