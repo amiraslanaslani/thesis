@@ -2,44 +2,42 @@
 \contentsline {section}{\numberline {1.1}سیستم عصبی انسان}{1}{}%
 \contentsline {subsection}{\numberline {1.1.1}ساختار نورون‌ها}{2}{}%
 \contentsline {subsection}{\numberline {1.1.2}انعطاف‌پذیری نورونی}{4}{}%
-\contentsline {subsection}{\numberline {1.1.3}سازوکار پاداش در مغز}{6}{}%
-\contentsline {subsection}{\numberline {1.1.4}\gls {neocortex} و \gls {cc}}{7}{}%
+\contentsline {subsection}{\numberline {1.1.3}سازوکار پاداش در مغز}{7}{}%
+\contentsline {subsection}{\numberline {1.1.4}\gls {neocortex} و \gls {cc}}{8}{}%
 \contentsline {subsection}{\numberline {1.1.5}نورون‌های هرمی}{9}{}%
-\contentsline {section}{\numberline {1.2}مسئله‌ی \gls {binding}}{10}{}%
-\contentsline {subsection}{\numberline {1.2.1}صورت مسئله‌ی \gls {binding}}{10}{}%
-\contentsline {subsection}{\numberline {1.2.2}شواهد رخ‌دادن \gls {binding} در انسان}{11}{}%
-\contentsline {section}{\numberline {1.3}\gls {snn}}{11}{}%
-\contentsline {subsection}{\numberline {1.3.1}مدل نورونی \gls {lif}}{12}{}%
-\contentsline {subsection}{\numberline {1.3.2}\gls {rl} در شبکه‌های عصبی ضربه‌ای}{12}{}%
-\contentsline {chapter}{\numberline {2}طرح مسئله}{13}{}%
-\contentsline {section}{\numberline {2.1}مسئله‌ی \gls {binding}}{13}{}%
-\contentsline {section}{\numberline {2.2}مشکلات موجود}{14}{}%
-\contentsline {section}{\numberline {2.3}عملکرد شبکه‌های عصبی ضربه‌ای در مسائل مطرح‌شده}{15}{}%
-\contentsline {section}{\numberline {2.4}تعریف مسئله}{15}{}%
-\contentsline {chapter}{\numberline {3}تحقیقات پیشین}{17}{}%
-\contentsline {section}{\numberline {3.1}رخ‌دادن انقیاد در انسان}{17}{}%
-\contentsline {section}{\numberline {3.2}پیدایش \gls {binding} در گروه‌های چندزمانی}{18}{}%
-\contentsline {section}{\numberline {3.3}ستون‌های کورتکسی، واحد‌های مستقل محاسباتی}{19}{}%
-\contentsline {section}{\numberline {3.4}استفاده‌ از مدل مبتنی بر ستون کورتکسی در شبکه‌های عصبی}{22}{}%
-\contentsline {section}{\numberline {3.5}استفاده از \gls {gnn} برای تشکیل انقیاد}{22}{}%
-\contentsline {chapter}{\numberline {4}مدل پیشنهادی، آزمایش‌ها و نتایج}{25}{}%
-\contentsline {section}{\numberline {4.1}مدل پیشنهادی}{25}{}%
-\contentsline {subsection}{\numberline {4.1.1}الگوی فعالیت جمعیت‌های ورودی}{26}{}%
-\contentsline {subsection}{\numberline {4.1.2}مدل‌سازی ستون‌های کورتکسی}{28}{}%
-\contentsline {subsection}{\numberline {4.1.3}اتصالات پیش‌خور بین ستون‌های کورتکسی و جمعیت‌های ورودی}{29}{}%
-\contentsline {subsection}{\numberline {4.1.4}اتصالات رو‌ به عقب بین ستون‌های کورتکسی}{31}{}%
+\contentsline {section}{\numberline {1.2}\gls {snn}}{11}{}%
+\contentsline {subsection}{\numberline {1.2.1}مدل نورونی \gls {lif}}{12}{}%
+\contentsline {subsection}{\numberline {1.2.2}\gls {rl} در شبکه‌های عصبی ضربه‌ای}{12}{}%
+\contentsline {chapter}{\numberline {2}طرح مسئله}{14}{}%
+\contentsline {section}{\numberline {2.1}مسئله‌ی \gls {binding}}{14}{}%
+\contentsline {section}{\numberline {2.2}شواهد رخدادن \gls {binding} در انسان}{16}{}%
+\contentsline {section}{\numberline {2.3}چالش‌های موجود}{16}{}%
+\contentsline {section}{\numberline {2.4}عملکرد شبکه‌های عصبی ضربه‌ای در مسائل مطرح‌شده}{17}{}%
+\contentsline {section}{\numberline {2.5}تعریف مسئله}{17}{}%
+\contentsline {chapter}{\numberline {3}تحقیقات پیشین}{19}{}%
+\contentsline {section}{\numberline {3.1}رخدادن انقیاد در انسان}{19}{}%
+\contentsline {section}{\numberline {3.2}پیدایش \gls {binding} در گروه‌های چندزمانی}{20}{}%
+\contentsline {section}{\numberline {3.3}ستون‌های قشری، واحد‌های مستقل محاسباتی}{21}{}%
+\contentsline {section}{\numberline {3.4}استفاده‌ از مدل مبتنی بر ستون قشری در شبکه‌های عصبی}{23}{}%
+\contentsline {section}{\numberline {3.5}استفاده از \gls {gnn} برای تشکیل انقیاد}{24}{}%
+\contentsline {chapter}{\numberline {4}مدل پیشنهادی، آزمایش‌ها و نتایج}{27}{}%
+\contentsline {section}{\numberline {4.1}مدل پیشنهادی}{27}{}%
+\contentsline {subsection}{\numberline {4.1.1}الگوی فعالیت جمعیت‌های ورودی}{28}{}%
+\contentsline {subsection}{\numberline {4.1.2}مدل‌سازی ستون‌های قشری}{30}{}%
+\contentsline {subsection}{\numberline {4.1.3}اتصالات \gls {feedforwardcon} بین ستون‌های قشری و جمعیت‌های ورودی}{32}{}%
+\contentsline {subsection}{\numberline {4.1.4}اتصالات پس‌خور بین ستون‌های قشری}{32}{}%
 \contentsline {subsection}{\numberline {4.1.5}وزن‌های اولیه و انعطاف‌پذیری نورونی}{32}{}%
-\contentsline {subsection}{\numberline {4.1.6}ابزار‌های پیاده‌سازی}{33}{}%
-\contentsline {subsection}{\numberline {4.1.7}پارامتر‌های مورد استفاده در آزمایش}{34}{}%
-\contentsline {section}{\numberline {4.2}آموزش}{34}{}%
-\contentsline {section}{\numberline {4.3}نتایج}{38}{}%
-\contentsline {subsection}{\numberline {4.3.1}نتایج آموزش ستون‌های کورتکسی اول و دوم}{38}{}%
-\contentsline {subsection}{\numberline {4.3.2}نتایج آموزش ستون کورتکسی سوم}{40}{}%
-\contentsline {subsection}{\numberline {4.3.3}میزان پیشرفت یادگیری}{41}{}%
-\contentsline {subsection}{\numberline {4.3.4}بررسی وجود انقیاد در مدل}{41}{}%
-\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{46}{}%
-\contentsline {section}{\numberline {5.1}مقایسه‌ی مدل ارائه‌شده با مدل‌های پیشین}{46}{}%
-\contentsline {section}{\numberline {5.2}نتیجه‌گیری}{47}{}%
-\contentsline {section}{\numberline {5.3}فعالیت‌های آینده}{47}{}%
-\contentsline {chapter}{واژه‌نامه فارسی به انگلیسی}{48}{}%
-\contentsline {chapter}{\rl {{مراجع}\hfill }}{51}{}%
+\contentsline {subsection}{\numberline {4.1.6}ابزار‌های پیاده‌سازی}{36}{}%
+\contentsline {subsection}{\numberline {4.1.7}پارامتر‌های مورد استفاده در آزمایش}{36}{}%
+\contentsline {section}{\numberline {4.2}آموزش}{40}{}%
+\contentsline {section}{\numberline {4.3}نتایج}{41}{}%
+\contentsline {subsection}{\numberline {4.3.1}نتایج آموزش ستون‌های قشری اول و دوم}{41}{}%
+\contentsline {subsection}{\numberline {4.3.2}نتایج آموزش ستون قشری سوم}{42}{}%
+\contentsline {subsection}{\numberline {4.3.3}میزان پیشرفت یادگیری}{44}{}%
+\contentsline {subsection}{\numberline {4.3.4}بررسی وجود انقیاد در مدل}{44}{}%
+\contentsline {chapter}{\numberline {5}جمع‌بندی و پیشنهاد کار‌های آینده}{49}{}%
+\contentsline {section}{\numberline {5.1}مقایسه‌ی مدل ارائه‌شده با مدل‌های پیشین}{49}{}%
+\contentsline {section}{\numberline {5.2}نتیجه‌گیری}{50}{}%
+\contentsline {section}{\numberline {5.3}فعالیت‌های آینده}{50}{}%
+\contentsline {chapter}{واژه‌نامه فارسی به انگلیسی}{52}{}%
+\contentsline {chapter}{\rl {{مراجع}\hfill }}{56}{}%
