@@ -16,17 +16,13 @@ Scanning input file binding_thesis.glo...
 !! Input index error (file = binding_thesis.glo, line = 7):
    -- Illegal page number ت or page_precedence rnaRA.
 !! Input index error (file = binding_thesis.glo, line = 8):
-   -- Illegal page number ت or page_precedence rnaRA.
+   -- Illegal page number ث or page_precedence rnaRA.
 !! Input index error (file = binding_thesis.glo, line = 9):
-   -- Illegal page number ت or page_precedence rnaRA.
+   -- Illegal page number ث or page_precedence rnaRA.
 !! Input index error (file = binding_thesis.glo, line = 10):
    -- Illegal page number ث or page_precedence rnaRA.
-!! Input index error (file = binding_thesis.glo, line = 11):
-   -- Illegal page number ث or page_precedence rnaRA.
-!! Input index error (file = binding_thesis.glo, line = 12):
-   -- Illegal page number ث or page_precedence rnaRA.
-.done (122 entries accepted, 12 rejected).
-Sorting entries....done (957 comparisons).
-Generating output file binding_thesis.gls....done (128 lines written, 0 warnings).
+.done (131 entries accepted, 10 rejected).
+Sorting entries....done (965 comparisons).
+Generating output file binding_thesis.gls....done (145 lines written, 0 warnings).
 Output written in binding_thesis.gls.
 Transcript written in binding_thesis.glg.
