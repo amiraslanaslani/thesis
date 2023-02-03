@@ -103,11 +103,22 @@ J.~Hawkins, S.~Ahmad, and Y.~Cui.
 D.~Hebb.
 \newblock The organization of behavior, mcgill university, 1949.
 
+\bibitem{Hodgkin1952}
+A.~L. Hodgkin and A.~F. Huxley.
+\newblock A quantitative description of membrane current and its application to
+  conduction and excitation in nerve.
+\newblock {\em The Journal of Physiology}, 117(4):500--544, Aug. 1952.
+
 \bibitem{Horton2005}
 J.~C. Horton and D.~L. Adams.
 \newblock The cortical column: a structure without a function.
 \newblock {\em Philosophical Transactions of the Royal Society B: Biological
   Sciences}, 360(1456):837--862, Apr. 2005.
+
+\bibitem{1257420}
+E.~Izhikevich.
+\newblock Simple model of spiking neurons.
+\newblock {\em IEEE Transactions on Neural Networks}, 14(6):1569--1572, 2003.
 
 \bibitem{Izhikevich2006-dy}
 E.~M. Izhikevich.

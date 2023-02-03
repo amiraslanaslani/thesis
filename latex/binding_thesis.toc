@@ -1,22 +1,23 @@
 \contentsline {chapter}{\numberline {1}مفاهیم اولیه}{1}{}%
 \contentsline {section}{\numberline {1.1}سیستم عصبی انسان}{1}{}%
 \contentsline {subsection}{\numberline {1.1.1}ساختار نورون‌ها}{2}{}%
-\contentsline {subsection}{\numberline {1.1.2}انعطاف‌پذیری نورونی}{4}{}%
-\contentsline {subsection}{\numberline {1.1.3}سازوکار پاداش در مغز}{7}{}%
-\contentsline {subsection}{\numberline {1.1.4}\gls {neocortex} و \gls {cc}}{8}{}%
-\contentsline {subsection}{\numberline {1.1.5}نورون‌های هرمی}{9}{}%
-\contentsline {section}{\numberline {1.2}\gls {snn}}{11}{}%
-\contentsline {subsection}{\numberline {1.2.1}مدل نورونی \gls {lif}}{12}{}%
-\contentsline {subsection}{\numberline {1.2.2}\gls {rl} در شبکه‌های عصبی ضربه‌ای}{12}{}%
-\contentsline {subsection}{\numberline {1.2.3}جمعیت‌های نورونی}{13}{}%
+\contentsline {subsection}{\numberline {1.1.2}\gls {neocortex} و \gls {cc}}{4}{}%
+\contentsline {subsection}{\numberline {1.1.3}نورون‌های هرمی}{6}{}%
+\contentsline {section}{\numberline {1.2}\gls {snn}}{6}{}%
+\contentsline {subsection}{\numberline {1.2.1}مدل‌های نورونی}{7}{}%
+\contentsline {subsection}{\numberline {1.2.2}مدل نورونی \gls {lif}}{8}{}%
+\contentsline {subsection}{\numberline {1.2.3}انعطاف‌پذیری نورونی}{8}{}%
+\contentsline {subsection}{\numberline {1.2.4}سازوکار پاداش در مغز}{11}{}%
+\contentsline {subsection}{\numberline {1.2.5}\gls {rl} در شبکه‌های عصبی ضربه‌ای}{12}{}%
+\contentsline {subsection}{\numberline {1.2.6}جمعیت‌های نورونی}{13}{}%
 \contentsline {chapter}{\numberline {2}طرح مسئله}{15}{}%
 \contentsline {section}{\numberline {2.1}مسئله‌ی \gls {binding}}{15}{}%
-\contentsline {section}{\numberline {2.2}شواهد رخدادن \gls {binding} در انسان}{17}{}%
+\contentsline {section}{\numberline {2.2}شواهد رخدادن \gls {binding} در مغز انسان}{17}{}%
 \contentsline {section}{\numberline {2.3}تعریف مسئله}{18}{}%
 \contentsline {section}{\numberline {2.4}چالش‌های موجود}{19}{}%
-\contentsline {section}{\numberline {2.5}عملکرد شبکه‌های عصبی ضربه‌ای در مسائل مطرح‌شده}{20}{}%
+\contentsline {section}{\numberline {2.5}دلایل استفاده از شبکه‌های عصبی ضربه‌ای در مسئله‌ی انقیاد}{19}{}%
 \contentsline {chapter}{\numberline {3}تحقیقات پیشین}{21}{}%
-\contentsline {section}{\numberline {3.1}رخدادن انقیاد در انسان}{21}{}%
+\contentsline {section}{\numberline {3.1}رخدادن انقیاد در مغز انسان}{21}{}%
 \contentsline {section}{\numberline {3.2}پیدایش \gls {binding} در گروه‌های چندزمانی}{22}{}%
 \contentsline {section}{\numberline {3.3}ستون‌های قشری، واحد‌های مستقل محاسباتی}{23}{}%
 \contentsline {section}{\numberline {3.4}استفاده‌ از مدل مبتنی بر ستون قشری در شبکه‌های عصبی}{25}{}%
@@ -25,12 +26,12 @@
 \contentsline {section}{\numberline {4.1}مدل پیشنهادی}{29}{}%
 \contentsline {subsection}{\numberline {4.1.1}الگوی فعالیت جمعیت‌های ورودی}{30}{}%
 \contentsline {subsection}{\numberline {4.1.2}مدل‌سازی ستون‌های قشری}{32}{}%
-\contentsline {subsection}{\numberline {4.1.3}اتصالات \gls {feedforwardcon} بین ستون‌های قشری و جمعیت‌های ورودی}{34}{}%
+\contentsline {subsection}{\numberline {4.1.3}\gls {feedforwardcon} بین ستون‌های قشری و جمعیت‌های ورودی}{34}{}%
 \contentsline {subsection}{\numberline {4.1.4}اتصالات پس‌خور بین ستون‌های قشری}{34}{}%
 \contentsline {subsection}{\numberline {4.1.5}وزن‌های اولیه و انعطاف‌پذیری نورونی}{34}{}%
 \contentsline {subsection}{\numberline {4.1.6}ابزار‌های پیاده‌سازی}{38}{}%
 \contentsline {subsection}{\numberline {4.1.7}پارامتر‌های مورد استفاده در آزمایش}{38}{}%
-\contentsline {section}{\numberline {4.2}آموزش}{42}{}%
+\contentsline {section}{\numberline {4.2}روند آموزش مدل پیشنهادی}{42}{}%
 \contentsline {section}{\numberline {4.3}نتایج}{43}{}%
 \contentsline {subsection}{\numberline {4.3.1}نتایج آموزش ستون‌های قشری اول و دوم}{43}{}%
 \contentsline {subsection}{\numberline {4.3.2}نتایج آموزش ستون قشری سوم}{44}{}%
