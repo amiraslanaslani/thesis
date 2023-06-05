@@ -15,7 +15,7 @@
 \contentsline {section}{\numberline {2.2}شواهد رخدادن \gls {binding} در مغز انسان}{17}{}%
 \contentsline {section}{\numberline {2.3}تعریف مسئله}{18}{}%
 \contentsline {section}{\numberline {2.4}چالش‌های موجود}{19}{}%
-\contentsline {section}{\numberline {2.5}دلایل استفاده از شبکه‌های عصبی ضربه‌ای در مسئله‌ی انقیاد}{19}{}%
+\contentsline {section}{\numberline {2.5}دلایل استفاده از شبکه‌های عصبی ضربه‌ای در مسئله‌ی انقیاد}{20}{}%
 \contentsline {chapter}{\numberline {3}تحقیقات پیشین}{21}{}%
 \contentsline {section}{\numberline {3.1}رخدادن انقیاد در مغز انسان}{21}{}%
 \contentsline {section}{\numberline {3.2}پیدایش \gls {binding} در گروه‌های چندزمانی}{22}{}%
