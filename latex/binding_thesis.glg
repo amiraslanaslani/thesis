@@ -1,0 +1,28 @@
+This is makeindex, version 2.15 [TeX Live 2021/W32TeX] (kpathsea + Thai support).
+Scanning style file ./binding_thesis.ist.............................done (29 attributes redefined, 0 ignored).
+Scanning input file binding_thesis.glo...
+!! Input index error (file = binding_thesis.glo, line = 1):
+   -- Illegal page number ت.
+!! Input index error (file = binding_thesis.glo, line = 2):
+   -- Illegal page number ت.
+!! Input index error (file = binding_thesis.glo, line = 3):
+   -- Illegal page number ت.
+!! Input index error (file = binding_thesis.glo, line = 4):
+   -- Illegal page number ت.
+!! Input index error (file = binding_thesis.glo, line = 5):
+   -- Illegal page number ت.
+!! Input index error (file = binding_thesis.glo, line = 6):
+   -- Illegal page number ت.
+!! Input index error (file = binding_thesis.glo, line = 7):
+   -- Illegal page number ت.
+!! Input index error (file = binding_thesis.glo, line = 8):
+   -- Illegal page number ث.
+!! Input index error (file = binding_thesis.glo, line = 9):
+   -- Illegal page number ث.
+!! Input index error (file = binding_thesis.glo, line = 10):
+   -- Illegal page number ث.
+.done (130 entries accepted, 10 rejected).
+Sorting entries....done (950 comparisons).
+Generating output file binding_thesis.gls....done (146 lines written, 0 warnings).
+Output written in binding_thesis.gls.
+Transcript written in binding_thesis.glg.

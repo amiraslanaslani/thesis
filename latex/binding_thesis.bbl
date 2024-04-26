@@ -1,0 +1,255 @@
+\begin{thebibliography}{10}
+
+\bibitem{Alexandre1991}
+F.~Alexandre, F.~Guyot, J.-P. Haton, and Y.~Burnod.
+\newblock The cortical column: A new processing unit for multilayered networks.
+\newblock {\em Neural Networks}, 4(1):15--25, Jan. 1991.
+
+\bibitem{brainitel01736978}
+C.~Braini.
+\newblock {\em {Biophysical approach of neuronal shapes}}.
+\newblock Theses, {Universit{\'e} Grenoble Alpes}, Dec. 2016.
+
+\bibitem{caporale2008spike}
+N.~Caporale, Y.~Dan, et~al.
+\newblock Spike timing-dependent plasticity: a hebbian learning rule.
+\newblock {\em Annual review of neuroscience}, 31(1):25--46, 2008.
+
+\bibitem{carew2000}
+T.~J. Carew.
+\newblock {\em Behavioral Neurobiology}, page 416.
+\newblock Sinauer, 2000.
+
+\bibitem{Douglas2004}
+R.~J. Douglas and K.~A. Martin.
+\newblock {NEURONAL} {CIRCUITS} {OF} {THE} {NEOCORTEX}.
+\newblock {\em Annual Review of Neuroscience}, 27(1):419--451, July 2004.
+
+\bibitem{EGUCHI2018a}
+J.~B. N.~S. Eguchi, Akihiro;Isbister.
+\newblock The emergence of polychronization and feature binding in a spiking
+  neural network model of the primate ventral visual system.
+\newblock {\em Psychological Review}, 125:545--571, 2018.
+
+\bibitem{Feldman2012}
+J.~Feldman.
+\newblock The neural binding problem(s).
+\newblock {\em Cognitive Neurodynamics}, 7(1):1--11, Sept. 2012.
+
+\bibitem{gerstner2014neuronal}
+W.~Gerstner, W.~M. Kistler, R.~Naud, and L.~Paninski.
+\newblock {\em Neuronal dynamics: From single neurons to networks and models of
+  cognition}.
+\newblock Cambridge University Press, 2014.
+
+\bibitem{ghosh2009spiking}
+S.~Ghosh-Dastidar and H.~Adeli.
+\newblock Spiking neural networks.
+\newblock {\em International journal of neural systems}, 19(04):295--308, 2009.
+
+\bibitem{TGNN}
+S.~Ghosh-Dastidar and H.~Adeli.
+\newblock Third generation neural networks: Spiking neural networks.
+\newblock In W.~Yu and E.~N. Sanchez, editors, {\em Advances in Computational
+  Intelligence}, pages 167--178, Berlin, Heidelberg, 2009. Springer Berlin
+  Heidelberg.
+
+\bibitem{goldstein_2019}
+E.~B. Goldstein.
+\newblock {\em Cognitive psychology: connecting mind, research, and everyday
+  experience}.
+\newblock Cengage Learning, 2019.
+
+\bibitem{granger1969investigating}
+C.~Granger.
+\newblock Investigating casual relations by econometric models and cross
+  spectral.
+\newblock 1969.
+
+\bibitem{greff2020binding}
+K.~Greff, S.~Van~Steenkiste, and J.~Schmidhuber.
+\newblock On the binding problem in artificial neural networks.
+\newblock {\em arXiv preprint arXiv:2012.05208}, 2020.
+
+\bibitem{Haas2006}
+J.~S. Haas, T.~Nowotny, and H.~Abarbanel.
+\newblock Spike-timing-dependent plasticity of inhibitory synapses in the
+  entorhinal cortex.
+\newblock {\em Journal of Neurophysiology}, 96(6):3305--3313, Dec. 2006.
+
+\bibitem{HTM2011}
+J.~Hawkins.
+\newblock hierarchical temporal memory (htm) whitepaper.
+\newblock Whitepaper, Numenta, Sept. 2011.
+
+\bibitem{Hawkins2021-rq}
+J.~Hawkins.
+\newblock {\em A Thousand Brains: A new theory of intelligence}.
+\newblock Basic Books, London, England, Mar. 2021.
+
+\bibitem{Hawkins2016}
+J.~Hawkins and S.~Ahmad.
+\newblock Why neurons have thousands of synapses, a theory of sequence memory
+  in neocortex.
+\newblock {\em Frontiers in Neural Circuits}, 10, Mar. 2016.
+
+\bibitem{Hawkins2017}
+J.~Hawkins, S.~Ahmad, and Y.~Cui.
+\newblock A theory of how columns in the neocortex enable learning the
+  structure of the world.
+\newblock {\em Frontiers in Neural Circuits}, 11, Oct. 2017.
+
+\bibitem{hebb1949organization}
+D.~Hebb.
+\newblock The organization of behavior, mcgill university, 1949.
+
+\bibitem{Hodgkin1952}
+A.~L. Hodgkin and A.~F. Huxley.
+\newblock A quantitative description of membrane current and its application to
+  conduction and excitation in nerve.
+\newblock {\em The Journal of Physiology}, 117(4):500--544, Aug. 1952.
+
+\bibitem{Horton2005}
+J.~C. Horton and D.~L. Adams.
+\newblock The cortical column: a structure without a function.
+\newblock {\em Philosophical Transactions of the Royal Society B: Biological
+  Sciences}, 360(1456):837--862, Apr. 2005.
+
+\bibitem{1257420}
+E.~Izhikevich.
+\newblock Simple model of spiking neurons.
+\newblock {\em IEEE Transactions on Neural Networks}, 14(6):1569--1572, 2003.
+
+\bibitem{Izhikevich2006-dy}
+E.~M. Izhikevich.
+\newblock Polychronization: computation with spikes.
+\newblock {\em Neural Comput.}, 18(2):245--282, Feb. 2006.
+
+\bibitem{Kandel2000}
+E.~R. Kandel, J.~H. Schwartz, and T.~M. Jessell.
+\newblock {\em Principles of Neural Science}.
+\newblock Appleton \& Lange, Stamford, CT, 4 edition, Jan. 2000.
+
+\bibitem{Lewis2019}
+M.~Lewis, S.~Purdy, S.~Ahmad, and J.~Hawkins.
+\newblock Locations in the neocortex: A theory of sensorimotor object
+  recognition using cortical grid cells.
+\newblock {\em Frontiers in Neural Circuits}, 13, Apr. 2019.
+
+\bibitem{Lui2011}
+J.~H. Lui, D.~V. Hansen, and A.~R. Kriegstein.
+\newblock Development and evolution of the human neocortex.
+\newblock {\em Cell}, 146(1):18--36, July 2011.
+
+\bibitem{SNN1997}
+W.~Maass.
+\newblock Networks of spiking neurons: The third generation of neural network
+  models.
+\newblock {\em Neural Networks}, 10(9):1659 -- 1671, 1997.
+
+\bibitem{Masi2021-rv}
+M.~Masi.
+\newblock {\em Spirit calls nature: Bridging science and spirituality,
+  consciousness and evolution in a synthesis of knowledge}.
+\newblock MVB, Frankfurt am Main, Germany, Sept. 2021.
+
+\bibitem{MateosAparicio2019}
+P.~Mateos-Aparicio and A.~Rodr{\'{\i}}guez-Moreno.
+\newblock The impact of studying brain plasticity.
+\newblock {\em Frontiers in Cellular Neuroscience}, 13, Feb. 2019.
+
+\bibitem{MEGIAS2001527}
+M.~Megı́as, Z.~Emri, T.~Freund, and A.~Gulyás.
+\newblock Total number and distribution of inhibitory and excitatory synapses
+  on hippocampal ca1 pyramidal cells.
+\newblock {\em Neuroscience}, 102(3):527--540, 2001.
+
+\bibitem{Mountcastle1978}
+V.~B. Mountcastle.
+\newblock An organizing principle for cerebral function: The unit model and the
+  distributed system.
+\newblock In G.~M. Edelman and V.~V. Mountcastle, editors, {\em The Mindful
+  Brain}, pages 7--50. MIT Press, Cambridge, MA, 1978.
+
+\bibitem{Mozafari2019}
+M.~Mozafari, M.~Ganjtabesh, A.~Nowzari-Dalini, and T.~Masquelier.
+\newblock {SpykeTorch}: Efficient simulation of convolutional spiking neural
+  networks with at most one spike per neuron.
+\newblock {\em Frontiers in Neuroscience}, 13, July 2019.
+
+\bibitem{NARAYANAN2016183}
+R.~T. Narayanan, R.~Egger, C.~P. {de Kock}, and M.~Oberlaender.
+\newblock Chapter 9 - neuronal cell types in the neocortex.
+\newblock In K.~S. Rockland, editor, {\em Axons and Brain Architecture}, pages
+  183--202. Academic Press, San Diego, 2016.
+
+\bibitem{noback2005human}
+C.~Noback, D.~Ruggiero, N.~Strominger, and R.~Demarest.
+\newblock {\em The Human Nervous System: Structure and Function}.
+\newblock Number no. 744; no. 2005 in SpringerLink: Springer e-Books. Humana
+  Press, 2005.
+
+\bibitem{Pelvig2008-vh}
+D.~P. Pelvig, H.~Pakkenberg, A.~K. Stark, and B.~Pakkenberg.
+\newblock Neocortical glial cell numbers in human brains.
+\newblock {\em Neurobiol. Aging}, 29(11):1754--1762, Nov. 2008.
+
+\bibitem{POIRAZI2003989}
+P.~Poirazi, T.~Brannon, and B.~W. Mel.
+\newblock Pyramidal neuron as two-layer neural network.
+\newblock {\em Neuron}, 37(6):989--999, 2003.
+
+\bibitem{Polsky2004}
+A.~Polsky, B.~W. Mel, and J.~Schiller.
+\newblock Computational subunits in thin dendrites of pyramidal cells.
+\newblock {\em Nature Neuroscience}, 7(6):621--627, May 2004.
+
+\bibitem{Purves2001-ns}
+D.~Purves.
+\newblock {\em Neuroscience}.
+\newblock Sinauer Associates, Sunderland, MA, 2 edition, Jan. 2001.
+
+\bibitem{REVONSUO1999123}
+A.~Revonsuo and J.~Newman.
+\newblock Binding and consciousness.
+\newblock {\em Consciousness and Cognition}, 8(2):123--127, 1999.
+
+\bibitem{Sadeghi2021}
+M.~Sadeghi, F.~Schrodt, S.~Otte, and M.~V. Butz.
+\newblock Binding and perspective taking as inference in a generative neural
+  network model.
+\newblock In {\em Lecture Notes in Computer Science}, pages 3--14. Springer
+  International Publishing, 2021.
+
+\bibitem{shatz1992developing}
+C.~J. Shatz.
+\newblock The developing brain.
+\newblock {\em Scientific American}, 267(3):60--67, 1992.
+
+\bibitem{sutton1998reinforcement}
+R.~Sutton, A.~Barto, and C.~Barto.
+\newblock {\em Reinforcement Learning: An Introduction}.
+\newblock A Bradford book. MIT Press, 1998.
+
+\bibitem{Treisman1999}
+A.~Treisman.
+\newblock Solutions to the binding problem.
+\newblock {\em Neuron}, 24(1):105--125, Sept. 1999.
+
+\bibitem{TREISMAN1982107}
+A.~Treisman and H.~Schmidt.
+\newblock Illusory conjunctions in the perception of objects.
+\newblock {\em Cognitive Psychology}, 14(1):107--141, 1982.
+
+\bibitem{velic2012}
+R.~Velik.
+\newblock From simple receptors to complex multimodal percepts: A first global
+  picture on the mechanisms involved in perceptual binding.
+\newblock {\em Frontiers in psychology}, 3:259, 07 2012.
+
+\bibitem{vonderMalsburg1999}
+C.~von~der Malsburg.
+\newblock The what and why of binding.
+\newblock {\em Neuron}, 24(1):95--104, Sept. 1999.
+
+\end{thebibliography}

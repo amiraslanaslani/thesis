@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2021/W32TeX)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: binding_thesis.aux
+The style file: abbrv.bst
+Database file #1: references.bib
+Repeated entry---line 282 of file references.bib
+ : @book{gerstner2014neuronal
+ :                           ,
+I'm skipping whatever remains of this entry
+Too many commas in name 1 of "Eguchi, Akihiro;Isbister, James B.;Ahmad, Nasir;Stringer, Simon" for entry EGUCHI2018a
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Eguchi, Akihiro;Isbister, James B.;Ahmad, Nasir;Stringer, Simon" for entry EGUCHI2018a
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Eguchi, Akihiro;Isbister, James B.;Ahmad, Nasir;Stringer, Simon" for entry EGUCHI2018a
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "Eguchi, Akihiro;Isbister, James B.;Ahmad, Nasir;Stringer, Simon" for entry EGUCHI2018a
+while executing---line 1090 of file abbrv.bst
+Warning--empty journal in granger1969investigating
+Warning--can't use both author and editor fields in Purves2001-ns
+You've used 46 entries,
+            2118 wiz_defined-function locations,
+            816 strings with 11139 characters,
+and the built_in function-call counts, 14398 in all, are:
+= -- 1418
+> -- 639
+< -- 6
++ -- 264
+- -- 205
+* -- 1036
+:= -- 2451
+add.period$ -- 143
+call.type$ -- 46
+change.case$ -- 231
+chr.to.int$ -- 0
+cite$ -- 48
+duplicate$ -- 550
+empty$ -- 1144
+format.name$ -- 205
+if$ -- 2980
+int.to.chr$ -- 0
+int.to.str$ -- 46
+missing$ -- 52
+newline$ -- 232
+num.names$ -- 98
+pop$ -- 223
+preamble$ -- 1
+purify$ -- 191
+quote$ -- 0
+skip$ -- 365
+stack$ -- 0
+substring$ -- 868
+swap$ -- 81
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 166
+warning$ -- 2
+while$ -- 144
+width$ -- 48
+write$ -- 509
+(There were 5 error messages)
